@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bq27bmaf4v5s3"]
+
+[node name="Game" type="Node2D"]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

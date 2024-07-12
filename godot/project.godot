@@ -1,0 +1,29 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="mj-163"
+run/main_scene="res://src/game.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Logger="*res://addons/gs_logger/logger.gd"
+HyperLog="*res://addons/hyperlog/hyperlog.tscn"
+SceneManager="*res://addons/scene_manager/SceneManager.tscn"
+Types="*res://src/common/types.gd"
+Events="*res://src/common/events.gd"
+Globals="*res://src/common/globals.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gs_logger/plugin.cfg", "res://addons/hyperlog/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
