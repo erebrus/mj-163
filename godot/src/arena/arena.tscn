@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmkxwyrd01d5c"]
+
+[ext_resource type="Script" path="res://src/arena/arena.gd" id="1_1uucj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5r0p"]
+size = Vector2(1920, 1080)
+
+[node name="Arena" type="Node2D"]
+script = ExtResource("1_1uucj")
+
+[node name="Areas" type="Node2D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="ArenaArea" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaArea"]
+position = Vector2(960, 540)
+shape = SubResource("RectangleShape2D_r5r0p")
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="body_entered" from="ArenaArea" to="." method="_on_arena_area_body_entered"]
+[connection signal="body_exited" from="ArenaArea" to="." method="_on_arena_area_body_exited"]

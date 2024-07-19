@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="mj-163"
-run/main_scene="res://src/game.tscn"
+run/main_scene="res://src/arena/arena.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -24,6 +24,22 @@ Types="*res://src/common/types.gd"
 Events="*res://src/common/events.gd"
 Globals="*res://src/common/globals.gd"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gs_logger/plugin.cfg", "res://addons/hyperlog/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+
+[global_group]
+
+areas=""
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_3="children"
+2d_physics/layer_5="cake"
