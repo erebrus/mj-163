@@ -1,7 +1,8 @@
 extends Node
 
 enum Cakes {
-	Cupcake
+	ChocolateCupcake,
+	StrawberryCupcake
 }
 
 enum CakeTags {

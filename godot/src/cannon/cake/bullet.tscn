@@ -1,17 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://chhl2p7pu8fpk"]
+[gd_scene load_steps=2 format=3 uid="uid://chhl2p7pu8fpk"]
 
 [ext_resource type="Script" path="res://src/cannon/cake/bullet.gd" id="1_2ya1w"]
-[ext_resource type="Texture2D" uid="uid://bhsrc36s61hld" path="res://assets/gfx/cupcake.png" id="1_ph3jt"]
 
 [node name="Bullet" type="Area2D"]
 visible = false
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_2ya1w")
-tags = Array[int]([])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ph3jt")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

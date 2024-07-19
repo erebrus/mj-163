@@ -2,9 +2,8 @@ extends Area2D
 
 @export var start_speed: float = 500
 
-@export var tags: Array[Types.CakeTags] = [
-	Types.CakeTags.Chocolate
-]
+@export var type: Types.Cakes
+@export var tags: Array[Types.CakeTags]
 
 
 var velocity: Vector2

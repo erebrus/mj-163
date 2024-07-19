@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dontb6c4ycxv0"]
+
+[ext_resource type="PackedScene" uid="uid://chhl2p7pu8fpk" path="res://src/cannon/cake/bullet.tscn" id="1_l4bxg"]
+[ext_resource type="Texture2D" uid="uid://cb6idasbai2g8" path="res://assets/gfx/chocolate_cupcake.png" id="2_n5qk1"]
+
+[node name="ChocolateCake" instance=ExtResource("1_l4bxg")]
+tags = Array[int]([0])
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_n5qk1")

@@ -2,7 +2,8 @@ extends Node2D
 
 const GUIDE_LENGTH = 400
 const CAKES = {
-	Types.Cakes.Cupcake: preload("res://src/cannon/cake/bullet.tscn")
+	Types.Cakes.StrawberryCupcake: preload("res://src/cannon/cake/types/strawberry_cake.tscn"),
+	Types.Cakes.ChocolateCupcake: preload("res://src/cannon/cake/types/chocolate_cake.tscn"),
 }
 
 @export var targetting_assist:= true:
@@ -24,7 +25,7 @@ var max_angle: float = deg_to_rad(max_angle_degrees)
 @onready var targetting_guide: Line2D = $Line2D
 
 
-@export var cake_type:= Types.Cakes.Cupcake
+@export var cake_type:= Types.Cakes.StrawberryCupcake
 
 
 func _ready() ->void:
@@ -32,6 +33,7 @@ func _ready() ->void:
 		Vector2(0,0),
 		Vector2(0, -GUIDE_LENGTH)
 	]
+	
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -39,6 +41,12 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("shoot"):
 		shoot()
+	
+	if event.is_action_pressed("wheel_up"):
+		change_ammo(1)
+	if event.is_action_pressed("wheel_down"):
+		change_ammo(-1)
+	
 
 func point_at(target: Vector2) -> void:
 	var angle = target.angle()
@@ -59,4 +67,6 @@ func shoot() -> void:
 	
 	bullet.shoot(rotation)
 	
-	
+
+func change_ammo(direction: int) -> void:
+	cake_type = posmod(int(cake_type) + direction, CAKES.size())
