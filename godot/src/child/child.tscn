@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ifiyd"]
 size = Vector2(80, 128)
 
-[node name="Child" type="CharacterBody2D"]
+[node name="Child" type="CharacterBody2D" groups=["children"]]
 collision_layer = 4
 script = ExtResource("1_l4c32")
 

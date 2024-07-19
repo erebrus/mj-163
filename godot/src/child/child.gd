@@ -34,3 +34,9 @@ func exited_arena()->void:
 	Events.child_exited_arena.emit(self)
 	Logger.info("Child %s left arena" % [name])
 	call_deferred("queue_free")
+
+func feed(cake)->void:
+	Events.on_feed.emit(self, cake)
+	Logger.info("Child %s fed with %s" % [name, cake.name])
+	call_deferred("queue_free")
+	
