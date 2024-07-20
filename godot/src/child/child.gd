@@ -20,9 +20,14 @@ var wanted_cake := Types.Cakes.ChocolateCupcake
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
+	happiness= 100+randi_range(-10,10)
 	_choose_cake()
 	$Head.play("happy")
 	$Body.play("walk")
+	HyperLog.log(self).text("velocity>round")
+	HyperLog.log(self).text("position>round")
+	HyperLog.log(self).text("state")
+	HyperLog.log(self).size = Vector2(100,100)
 
 func _choose_cake():
 	wanted_cake = Types.DessertType.values().pick_random()
@@ -76,7 +81,7 @@ func _update_state():
 			state = get_state_from_happiness()
 			match state:
 				Types.ChildState.CRYING:
-					animation_player.play("cry")
+					animation_player.play("crying")
 				Types.ChildState.ABOUT_TO_CRY:
 					animation_player.play("walk_upset_left" if velocity.x <0 else "walk_upset_right" )
 				Types.ChildState.UPSET:

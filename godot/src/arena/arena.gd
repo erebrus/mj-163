@@ -22,6 +22,7 @@ func _ready() -> void:
 	Events.child_entered_arena.connect(func(x): child_count+= 1)
 	Events.child_exited_arena.connect(func(x): child_count-= 1)
 	Events.on_feed.connect(_on_feed)
+	
 	#await Leaderboards.post_guest_score("cake-sharing-happiness-score-S7ha", 100.0, "player_name")
 	
 func get_time_from_start()->int:
