@@ -1,8 +1,8 @@
 extends CharacterBody2D
 class_name Child
 
-const EATING_TIME=3
-const REACTING_TIME=3
+const EATING_TIME=1
+const REACTING_TIME=2
 const INITIAL_HAPPINESS_RATE =5.0
 const TIME_TO_HIGHER_RATE :=30.0
 const MAX_HAPPINESS_RATE :=15.0
@@ -114,15 +114,12 @@ func exited_arena()->void:
 
 func feed(cake)->void:	
 	_hide_baloon()
-	state = Types.ChildState.EATING
-	_update_state()
-	Logger.debug("Child %s fed with %s" % [name, cake])
-	await get_tree().create_timer(EATING_TIME).timeout 
-	check_reaction(cake)
-	
-func check_reaction(cake):
-	if cake == wanted_cake:
+	if cake == wanted_cake:		
 		Events.on_feed.emit(self, cake)
+		state = Types.ChildState.EATING
+		_update_state()
+		Logger.debug("Child %s fed with %s" % [name, cake])
+		await get_tree().create_timer(EATING_TIME).timeout 
 		state = Types.ChildState.GOOD_REACTION
 		_update_state()
 		await get_tree().create_timer(REACTING_TIME).timeout 	
@@ -133,14 +130,15 @@ func check_reaction(cake):
 		await get_tree().create_timer(REACTING_TIME).timeout		
 		state = get_state_from_happiness()
 		_show_baloon()
+	
+
+
 		
 func _hide_baloon():
 	$Balloon.hide()
-	$CollisionShape2D.disabled = true
 
 func _show_baloon():
 	$Balloon.show()
-	$CollisionShape2D.disabled = false
 
 func leave():
 	state = Types.ChildState.LEAVING
@@ -163,3 +161,6 @@ func get_time_on_screen()-> float:
 		return (Time.get_ticks_msec() - on_screen_since) / 1000.0
 	else:
 		return -1
+
+func accepts_cake()-> bool:
+	return $Balloon.visible

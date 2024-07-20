@@ -1,0 +1,68 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://cf4j1j4u3se3s"]
+
+[ext_resource type="Texture2D" uid="uid://dgtojbgiy5676" path="res://assets/gfx/kids/faces/skin-3.1/disgust.png" id="1_wlvxy"]
+[ext_resource type="Texture2D" uid="uid://c36j8ysw2u5y3" path="res://assets/gfx/kids/faces/skin-3.1/cry.png" id="2_eciio"]
+[ext_resource type="Texture2D" uid="uid://ceoracul3bpx6" path="res://assets/gfx/kids/faces/skin-3.1/happy.png" id="3_ecr5o"]
+[ext_resource type="Texture2D" uid="uid://cgehe32a5hkl1" path="res://assets/gfx/kids/faces/skin-3.1/walk-happy.png" id="4_55smk"]
+[ext_resource type="Texture2D" uid="uid://csvep147opkpg" path="res://assets/gfx/kids/faces/skin-3.1/walk-neutral.png" id="5_8vvaf"]
+[ext_resource type="Texture2D" uid="uid://dot6pua25p7ma" path="res://assets/gfx/kids/faces/skin-3.1/stuffed.png" id="6_4sk3j"]
+[ext_resource type="Texture2D" uid="uid://bvnus7tx22qon" path="res://assets/gfx/kids/faces/skin-3.1/walk-upset.png" id="7_nufo0"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wlvxy")
+}],
+"loop": true,
+"name": &"bad_reaction",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_eciio")
+}],
+"loop": true,
+"name": &"cry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ecr5o")
+}],
+"loop": true,
+"name": &"good_reaction",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_55smk")
+}],
+"loop": true,
+"name": &"happy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_8vvaf")
+}],
+"loop": true,
+"name": &"neutral",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_4sk3j")
+}],
+"loop": true,
+"name": &"stuffed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_nufo0")
+}],
+"loop": true,
+"name": &"upset",
+"speed": 5.0
+}]
