@@ -2,6 +2,7 @@ extends Node
 
 enum ChildState{CRYING, ABOUT_TO_CRY, UPSET, NORMAL, EATING, BAD_REACTION, GOOD_REACTION, LEAVING}
 enum Direction{LEFT=-1, RIGHT=1}
+
 enum Cakes {
 	ChocolateCupcake,
 	StrawberryCupcake

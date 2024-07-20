@@ -13,8 +13,8 @@ var debug_build := false
 
 
 
-@onready var menu_music: AudioStreamPlayer = $menu_music
-@onready var game_music: AudioStreamPlayer = $game_music
+#@onready var menu_music: AudioStreamPlayer = $menu_music
+#@onready var game_music: AudioStreamPlayer = $game_music
 
 func _ready():
 	_init_logger()

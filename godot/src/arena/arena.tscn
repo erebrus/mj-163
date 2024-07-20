@@ -1,13 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmkxwyrd01d5c"]
+[gd_scene load_steps=6 format=3 uid="uid://cmkxwyrd01d5c"]
 
 [ext_resource type="Script" path="res://src/arena/arena.gd" id="1_1uucj"]
-[ext_resource type="PackedScene" uid="uid://nob8fbq77y0a" path="res://src/cannon/cannon.tscn" id="2_6r8td"]
+[ext_resource type="Texture2D" uid="uid://ctdu624vk3jt" path="res://assets/gfx/background/background-art.png" id="2_21irk"]
+[ext_resource type="PackedScene" uid="uid://l0bs5d5chsgh" path="res://src/grandma/grandma.tscn" id="3_o4o4u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5r0p"]
 size = Vector2(1920, 1080)
 
+[sub_resource type="Curve2D" id="Curve2D_vshdf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 200, 1000, 0, 0, 0, 0, 1700, 1000)
+}
+point_count = 2
+
 [node name="Arena" type="Node2D"]
 script = ExtResource("1_1uucj")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(960, 540)
+texture = ExtResource("2_21irk")
 
 [node name="Areas" type="Node2D" parent="."]
 
@@ -22,8 +33,11 @@ collision_mask = 4
 position = Vector2(960, 540)
 shape = SubResource("RectangleShape2D_r5r0p")
 
-[node name="Cannon" parent="." instance=ExtResource("2_6r8td")]
-position = Vector2(960, 1050)
+[node name="GrandmaPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_vshdf")
+
+[node name="Grandma" parent="GrandmaPath" instance=ExtResource("3_o4o4u")]
+position = Vector2(200, 1000)
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="body_entered" from="ArenaArea" to="." method="_on_arena_area_body_entered"]
