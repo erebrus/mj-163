@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmkxwyrd01d5c"]
+[gd_scene load_steps=7 format=3 uid="uid://cmkxwyrd01d5c"]
 
 [ext_resource type="Script" path="res://src/arena/arena.gd" id="1_1uucj"]
 [ext_resource type="Texture2D" uid="uid://ctdu624vk3jt" path="res://assets/gfx/background/background-art.png" id="2_21irk"]
+[ext_resource type="PackedScene" uid="uid://bysvywpn0uoie" path="res://src/dessert_table/dessert_table.tscn" id="3_hjtns"]
 [ext_resource type="PackedScene" uid="uid://l0bs5d5chsgh" path="res://src/grandma/grandma.tscn" id="3_o4o4u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5r0p"]
@@ -32,6 +33,9 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaArea"]
 position = Vector2(960, 540)
 shape = SubResource("RectangleShape2D_r5r0p")
+
+[node name="DessertTable" parent="." instance=ExtResource("3_hjtns")]
+position = Vector2(960, 902)
 
 [node name="GrandmaPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_vshdf")
