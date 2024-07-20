@@ -34,6 +34,9 @@ collision_mask = 4
 position = Vector2(960, 540)
 shape = SubResource("RectangleShape2D_r5r0p")
 
+[node name="Kids" type="Node2D" parent="ArenaArea"]
+y_sort_enabled = true
+
 [node name="DessertTable" parent="." instance=ExtResource("3_hjtns")]
 z_index = 1
 position = Vector2(960, 902)
