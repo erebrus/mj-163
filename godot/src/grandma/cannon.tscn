@@ -13,7 +13,7 @@ width = 5.0
 default_color = Color(0.43745, 0.78, 0.117, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -59)
+position = Vector2(0, -70)
 texture = ExtResource("2_weijh")
 
 [node name="BulletSpawn" type="Marker2D" parent="."]

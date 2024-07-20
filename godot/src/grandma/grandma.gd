@@ -41,7 +41,12 @@ func _input(event: InputEvent) -> void:
 		_change_ammo(-1)
 	
 	if event is InputEventMouseMotion:
-		barrel.point_at(get_local_mouse_position())
+		var mouse_position = get_local_mouse_position()
+		var direction = mouse_position.x / abs(mouse_position.x)
+		if direction != current_direction:
+			_face(direction)
+		
+		barrel.point_at(mouse_position)
 	
 	if event.is_action_pressed("shoot"):
 		barrel.shoot(cake_type)
@@ -61,9 +66,6 @@ func _face(direction: int) -> void:
 	
 
 func _move(direction: int, delta: float) -> void:
-	if direction != current_direction:
-		_face(direction)
-	
 	# TODO: moving animation?
 	progress += direction * speed * delta
 	

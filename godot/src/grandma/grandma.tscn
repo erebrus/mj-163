@@ -25,7 +25,8 @@ position = Vector2(450, -38)
 
 [node name="CannonBarrel" parent="Cannon" instance=ExtResource("3_4nk1i")]
 unique_name_in_owner = true
-position = Vector2(137, -85)
+position = Vector2(145, -66)
+rotation = 1.1973
 
 [node name="GrandmaForeground" type="Sprite2D" parent="."]
 unique_name_in_owner = true
