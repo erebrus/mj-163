@@ -16,6 +16,25 @@ const SPEED = 100.0
 const MIN_Y = 300.0
 const MAX_Y = 760.0
 
+const BUSY_STATES = [
+	Types.ChildState.EATING,
+	Types.ChildState.BAD_REACTION,
+	Types.ChildState.GOOD_REACTION,
+	Types.ChildState.LEAVING,
+]
+	
+const WALKING_STATES = [
+	Types.ChildState.ABOUT_TO_CRY,
+	Types.ChildState.UPSET,
+	Types.ChildState.NORMAL,
+	Types.ChildState.LEAVING,
+]
+	
+	
+var skin = Types.ChildSkin.values().pick_random()
+var hair = Types.ChildHair.values().pick_random()
+var clothes = Types.ChildClothes.values().pick_random()
+
 var direction_since 
 var on_screen_since=-1
 var happiness = 100
@@ -25,12 +44,14 @@ var wanted_flavour := Types.Flavour.Chocolate
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var direction_timer: Timer = $DirectionTimer
+@onready var head_sprite: Sprite2D = %Head
+@onready var body_sprite: Sprite2D = %Body
+
 
 func _ready() -> void:
 	happiness= 100+randi_range(-20,10)
 	_choose_cake()
-	$Head.play("happy")
-	$Body.play("walk")
+	_update_state()
 	var wt = MIN_DIRECTION_CHANGE_TIME + randf()*MIN_DIRECTION_CHANGE_TIME
 	
 	direction_timer.wait_time = wt
@@ -81,26 +102,28 @@ func _update_happiness(delta:float)->void:
 	_update_state()
 	
 func _update_state():
-	match state:
-		Types.ChildState.EATING:
-			animation_player.play("stuffed")
-		Types.ChildState.BAD_REACTION:
-			animation_player.play("bad_reaction")
-		Types.ChildState.GOOD_REACTION:
-			animation_player.play("good_reaction")
-		Types.ChildState.LEAVING:			
-			animation_player.play("walk_happy_left" if velocity.x <0 else "walk_happy_right" )
-		_:
-			state = get_state_from_happiness()
-			match state:
-				Types.ChildState.CRYING:
-					animation_player.play("crying")
-				Types.ChildState.ABOUT_TO_CRY:
-					animation_player.play("walk_upset_left" if velocity.x <0 else "walk_upset_right" )
-				Types.ChildState.UPSET:
-					animation_player.play("walk_neutral_left" if velocity.x <0 else "walk_neutral_right" )
-				Types.ChildState.NORMAL:
-					animation_player.play("walk_happy_left" if velocity.x <0 else "walk_happy_right" )
+	if not state in BUSY_STATES:
+		state = get_state_from_happiness()
+	
+	var is_walking = state in WALKING_STATES
+	
+	head_sprite.texture = Types.head_texture(state, skin, hair)
+	body_sprite.texture = Types.body_texture(is_walking, skin, clothes)
+	
+	if is_walking:
+		head_sprite.flip_h = velocity.x > 0
+		body_sprite.flip_h = velocity.x > 0
+		body_sprite.hframes = 2
+		var walk_speed = 1
+		if state == Types.ChildState.UPSET:
+			walk_speed = 0.75
+		if state == Types.ChildState.ABOUT_TO_CRY:
+			walk_speed = 0.5
+			
+		animation_player.play("walk", -1, walk_speed)
+	else:
+		body_sprite.hframes = 1
+		animation_player.play("sit")
 
 
 func change_direction():	
@@ -143,8 +166,6 @@ func feed(cake, flavour)->void:
 		_show_baloon()
 	
 
-
-		
 func _hide_baloon():
 	$Balloon.hide()
 
@@ -159,10 +180,7 @@ func leave():
 			velocity.x *=-1
 
 func should_move()->bool:
-	return state == Types.ChildState.ABOUT_TO_CRY or \
-			state == Types.ChildState.UPSET or \
-			state == Types.ChildState.NORMAL or \
-			state == Types.ChildState.LEAVING
+	return state in WALKING_STATES
 
 func is_on_screen()->bool:
 	return on_screen_since!=-1
