@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdfei1c2hmd4a"
-path="res://.godot/imported/cry.png-ad8370da991083fffa79dfe529a8f0ab.ctex"
+uid="uid://jed56xdork30"
+path="res://.godot/imported/cry.png-fc23a83c2d54a781cc33aa068a9c1f4b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/kids/faces/skin-3.4/cry.png"
-dest_files=["res://.godot/imported/cry.png-ad8370da991083fffa79dfe529a8f0ab.ctex"]
+source_file="res://assets/gfx/kids/faces/skin-1.4/cry.png"
+dest_files=["res://.godot/imported/cry.png-fc23a83c2d54a781cc33aa068a9c1f4b.ctex"]
 
 [params]
 
