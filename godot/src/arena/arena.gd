@@ -11,6 +11,7 @@ const ChildScene:PackedScene = preload("res://src/child/child.tscn")
 var child_count:int = 0
 var start_time:int=0
 var score=0
+var player_name="test_player"
 
 func _ready() -> void:
 	_init_areas()
@@ -18,6 +19,8 @@ func _ready() -> void:
 	Events.child_entered_arena.connect(func(x): child_count+= 1)
 	Events.child_exited_arena.connect(func(x): child_count-= 1)
 	Events.on_feed.connect(_on_feed)
+	#await Leaderboards.post_guest_score("cake-sharing-happiness-score-S7ha", 100.0, "player_name")
+	
 func get_time_from_start()->int:
 	return Time.get_ticks_msec()-start_time
 

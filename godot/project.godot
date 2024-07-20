@@ -23,6 +23,8 @@ SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 Types="*res://src/common/types.gd"
 Events="*res://src/common/events.gd"
 Globals="*res://src/common/globals.gd"
+Leaderboards="*res://addons/quiver_leaderboards/leaderboards.tscn"
+PlayerAccounts="*res://addons/quiver_player_accounts/player_accounts.tscn"
 
 [display]
 
@@ -32,7 +34,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gs_logger/plugin.cfg", "res://addons/hyperlog/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gs_logger/plugin.cfg", "res://addons/hyperlog/plugin.cfg", "res://addons/quiver_leaderboards/plugin.cfg", "res://addons/quiver_player_accounts/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
 
 [global_group]
 
@@ -62,3 +64,7 @@ wheel_down={
 2d_physics/layer_1="world"
 2d_physics/layer_3="children"
 2d_physics/layer_5="cake"
+
+[quiver]
+
+general/auth_token="Evo1aW5MYe4hZY9MxQY6mF7uUeeabBCHQQbV4lTQ"
