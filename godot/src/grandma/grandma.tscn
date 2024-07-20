@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://l0bs5d5chsgh"]
+[gd_scene load_steps=8 format=3 uid="uid://l0bs5d5chsgh"]
 
 [ext_resource type="Script" path="res://src/grandma/grandma.gd" id="1_8yr8d"]
 [ext_resource type="Texture2D" uid="uid://dhssdf6ldn8gu" path="res://assets/gfx/grandma/grandma-bg.png" id="2_feod5"]
 [ext_resource type="PackedScene" uid="uid://nob8fbq77y0a" path="res://src/grandma/cannon.tscn" id="3_4nk1i"]
 [ext_resource type="Texture2D" uid="uid://glj5vpbxurxj" path="res://assets/gfx/grandma/grandma-fg.png" id="4_l15ix"]
-[ext_resource type="PackedScene" uid="uid://d01baxvliu54e" path="res://src/grandma/cake/dessert_sprite.tscn" id="4_ungno"]
-[ext_resource type="Texture2D" uid="uid://cvprullnurv32" path="res://assets/gfx/desserts/cupcake.png" id="5_4cglk"]
+[ext_resource type="PackedScene" uid="uid://bo160ji4aulmn" path="res://src/grandma/cake/dessert_sprite.tscn" id="4_ungno"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qx6y6"]
 line_spacing = 0.0
@@ -40,7 +39,8 @@ rotation = 1.1973
 [node name="DessertSprite" parent="." instance=ExtResource("4_ungno")]
 unique_name_in_owner = true
 position = Vector2(-132, -148)
-texture = ExtResource("5_4cglk")
+frame = 0
+flavour = 0
 
 [node name="AmmoCounter" type="Node2D" parent="."]
 position = Vector2(-174, -233)

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bqxx8qa6g5fbo" path="res://assets/gfx/kids/body-types/clothes-1-skin-1.png" id="3_halj3"]
 [ext_resource type="Texture2D" uid="uid://ygkcleuqveus" path="res://assets/gfx/kids/faces/skin-3.1/cry.png" id="4_yrejj"]
 [ext_resource type="AnimationLibrary" uid="uid://c6lt5hj23useu" path="res://src/child/animations.tres" id="5_a5ow7"]
+[ext_resource type="PackedScene" uid="uid://cxmi6ni1phyla" path="res://src/child/thought_bubble.tscn" id="5_uodt6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ifiyd"]
 size = Vector2(80, 128)
@@ -16,11 +17,6 @@ script = ExtResource("1_l4c32")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -64)
 shape = SubResource("RectangleShape2D_ifiyd")
-
-[node name="Balloon" type="Sprite2D" parent="."]
-position = Vector2(8, -280)
-texture = ExtResource("2_jqinp")
-offset = Vector2(128, 0)
 
 [node name="Sprites" type="Node2D" parent="."]
 position = Vector2(0, -73)
@@ -45,5 +41,8 @@ libraries = {
 
 [node name="DirectionTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ThoughtBubble" parent="." instance=ExtResource("5_uodt6")]
+position = Vector2(64, -344)
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
