@@ -6,9 +6,18 @@ const ChildScene:PackedScene = preload("res://src/child/child.tscn")
 @export var area_rows :=3
 @export var y_area_margin := 100.0
 
+@onready var spawn_timer: Timer = $SpawnTimer
+
+var child_count:int = 0
+var start_time:int=0
 func _ready() -> void:
 	_init_areas()
+	start_time = Time.get_ticks_msec()
+	Events.child_entered_arena.connect(func(x): child_count+= 1)
+	Events.child_exited_arena.connect(func(x): child_count-= 1)
 
+func get_time_from_start()->int:
+	return Time.get_ticks_msec()-start_time
 
 func _init_areas() -> void:
 	for i in range(area_rows):
