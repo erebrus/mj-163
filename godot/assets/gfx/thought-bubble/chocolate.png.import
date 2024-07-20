@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y0k7xe5m76ug"
-path="res://.godot/imported/cry.png-05b131fa621d37a20b41360aa708c53a.ctex"
+uid="uid://dsu73cocvq8gi"
+path="res://.godot/imported/chocolate.png-8abfaa7e9518c87b47485d26c4aed9be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/kids/faces/skin-1.3/cry.png"
-dest_files=["res://.godot/imported/cry.png-05b131fa621d37a20b41360aa708c53a.ctex"]
+source_file="res://assets/gfx/thought-bubble/chocolate.png"
+dest_files=["res://.godot/imported/chocolate.png-8abfaa7e9518c87b47485d26c4aed9be.ctex"]
 
 [params]
 

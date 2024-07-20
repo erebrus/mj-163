@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y0k7xe5m76ug"
-path="res://.godot/imported/cry.png-05b131fa621d37a20b41360aa708c53a.ctex"
+uid="uid://jqqmr4qfnqum"
+path="res://.godot/imported/dessert-variations.png-4a1a1306c1a19dadaae0a703687d360c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/kids/faces/skin-1.3/cry.png"
-dest_files=["res://.godot/imported/cry.png-05b131fa621d37a20b41360aa708c53a.ctex"]
+source_file="res://assets/gfx/desserts/dessert-variations.png"
+dest_files=["res://.godot/imported/dessert-variations.png-4a1a1306c1a19dadaae0a703687d360c.ctex"]
 
 [params]
 

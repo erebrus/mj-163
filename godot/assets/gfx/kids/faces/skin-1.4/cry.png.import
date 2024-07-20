@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c35255yjg24pn"
-path="res://.godot/imported/cry.png-7c3c4e8db1fdf8f6e02839850095005c.ctex"
+path="res://.godot/imported/cry.png-fc23a83c2d54a781cc33aa068a9c1f4b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/kids/faces/skin-2.4/cry.png"
-dest_files=["res://.godot/imported/cry.png-7c3c4e8db1fdf8f6e02839850095005c.ctex"]
+source_file="res://assets/gfx/kids/faces/skin-1.4/cry.png"
+dest_files=["res://.godot/imported/cry.png-fc23a83c2d54a781cc33aa068a9c1f4b.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://pcy7k3qku5p6"
-path="res://.godot/imported/happy.png-6106065b18935f3fb1b01c9362e453df.ctex"
+path="res://.godot/imported/happy.png-d749a9cc7aab5a4d3fd10c44bbf62988.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/kids/faces/skin-1.4/happy.png"
-dest_files=["res://.godot/imported/happy.png-6106065b18935f3fb1b01c9362e453df.ctex"]
+source_file="res://assets/gfx/kids/faces/skin-3.4/happy.png"
+dest_files=["res://.godot/imported/happy.png-d749a9cc7aab5a4d3fd10c44bbf62988.ctex"]
 
 [params]
 

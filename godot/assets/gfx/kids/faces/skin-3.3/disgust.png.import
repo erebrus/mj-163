@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://li6hu8lcwexi"
-path="res://.godot/imported/disgust.png-fbf990b01e030b40a97068dbeefbaedb.ctex"
+path="res://.godot/imported/disgust.png-faeee9203eedf3980b040fdc207ec47a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/kids/faces/skin-1.3/disgust.png"
-dest_files=["res://.godot/imported/disgust.png-fbf990b01e030b40a97068dbeefbaedb.ctex"]
+source_file="res://assets/gfx/kids/faces/skin-3.3/disgust.png"
+dest_files=["res://.godot/imported/disgust.png-faeee9203eedf3980b040fdc207ec47a.ctex"]
 
 [params]
 
