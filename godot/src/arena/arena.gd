@@ -2,6 +2,7 @@ extends Node2D
 
 const AreaScene:PackedScene = preload("res://src/arena/detection_area.tscn")
 const ChildScene:PackedScene = preload("res://src/child/child.tscn")
+const ScoreScene:=preload("res://src/child/ScoreLabel.tscn")
 
 @export var area_rows := 4
 @export var y_area_margin := 200.0
@@ -92,7 +93,12 @@ func _on_arena_area_body_exited(body: Node2D) -> void:
 		body.exited_arena()
 
 func _on_feed(child:Child, cake):
-	score += Types.ScoreTable[child.get_state_from_happiness()]
+	var l = ScoreScene.instantiate()
+	l.global_position = child.global_position-Vector2(-64, 250)
+	var score_delta = Types.ScoreTable[child.get_state_from_happiness()]
+	l.set_score(score_delta)
+	add_child(l)
+	score += score_delta
 	_update_hud()
 	
 func _update_hud():
