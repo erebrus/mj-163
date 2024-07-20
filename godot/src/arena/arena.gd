@@ -6,8 +6,8 @@ const ChildScene:PackedScene = preload("res://src/child/child.tscn")
 @export var area_rows := 4
 @export var y_area_margin := 200.0
 
-@export var initial_spawn_rate := 5.0
-@export var time_to_double := 10.0
+@export var initial_spawn_rate := 10.0
+@export var time_to_double := 120.0
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var timer: Timer = $Timer
 
