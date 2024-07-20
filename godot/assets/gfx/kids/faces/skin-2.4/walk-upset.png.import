@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgehe32a5hkl1"
-path="res://.godot/imported/walk-happy.png-72af9bb6895fb234a0c7b20988d06ce7.ctex"
+uid="uid://cuokjtyvpdeor"
+path="res://.godot/imported/walk-upset.png-51a218d4ccec68c5aea05bf11727fcd4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/kids/faces/skin-3.1/walk-happy.png"
-dest_files=["res://.godot/imported/walk-happy.png-72af9bb6895fb234a0c7b20988d06ce7.ctex"]
+source_file="res://assets/gfx/kids/faces/skin-2.4/walk-upset.png"
+dest_files=["res://.godot/imported/walk-upset.png-51a218d4ccec68c5aea05bf11727fcd4.ctex"]
 
 [params]
 

@@ -36,3 +36,8 @@ animation = &"good_reaction"
 libraries = {
 "": ExtResource("5_a5ow7")
 }
+
+[node name="DirectionTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
