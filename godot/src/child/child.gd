@@ -17,12 +17,15 @@ var on_screen_since=-1
 var happiness = 100
 var state := Types.ChildState.NORMAL
 var wanted_cake := Types.Cakes.ChocolateCupcake
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	_choose_cake()
+	$Head.play("happy")
+	$Body.play("walk")
 
 func _choose_cake():
-	wanted_cake = Types.Cakes.values().pick_random()
+	wanted_cake = Types.DessertType.values().pick_random()
 	$Balloon.texture = Types.CakeTextures[wanted_cake]
 	
 func _physics_process(delta: float) -> void:	
@@ -61,24 +64,24 @@ func _update_happiness(delta:float)->void:
 func _update_state():
 	match state:
 		Types.ChildState.EATING:
-			$Polygon2D.color = Color.GRAY
+			animation_player.play("stuffed")
 		Types.ChildState.BAD_REACTION:
-			$Polygon2D.color = Color.PURPLE
+			animation_player.play("bad_reaction")
 		Types.ChildState.GOOD_REACTION:
-			$Polygon2D.color = Color.GREEN_YELLOW
-		Types.ChildState.LEAVING:
-			$Polygon2D.color = Color.SEA_GREEN
+			animation_player.play("good_reaction")
+		Types.ChildState.LEAVING:			
+			animation_player.play("walk_happy_left" if velocity.x <0 else "walk_happy_right" )
 		_:
 			state = get_state_from_happiness()
 			match state:
 				Types.ChildState.CRYING:
-					$Polygon2D.color = Color.RED
+					animation_player.play("cry")
 				Types.ChildState.ABOUT_TO_CRY:
-					$Polygon2D.color = Color.ORANGE
+					animation_player.play("walk_upset_left" if velocity.x <0 else "walk_upset_right" )
 				Types.ChildState.UPSET:
-					$Polygon2D.color = Color.YELLOW
+					animation_player.play("walk_neutral_left" if velocity.x <0 else "walk_neutral_right" )
 				Types.ChildState.NORMAL:
-					$Polygon2D.color = Color.WHITE
+					animation_player.play("walk_happy_left" if velocity.x <0 else "walk_happy_right" )
 
 
 func check_crazy_ivan():
@@ -104,6 +107,7 @@ func exited_arena()->void:
 	call_deferred("queue_free")
 
 func feed(cake)->void:	
+	_hide_baloon()
 	state = Types.ChildState.EATING
 	_update_state()
 	Logger.debug("Child %s fed with %s" % [name, cake])
@@ -120,10 +124,16 @@ func check_reaction(cake):
 	else:
 		state = Types.ChildState.BAD_REACTION
 		_update_state()
-		await get_tree().create_timer(REACTING_TIME).timeout
+		await get_tree().create_timer(REACTING_TIME).timeout		
 		state = get_state_from_happiness()
+		_show_baloon()
 		
-		
+func _hide_baloon():
+	$Balloon.hide()
+
+func _show_baloon():
+	$Balloon.show()
+
 func leave():
 	state = Types.ChildState.LEAVING
 	_update_state()
