@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://nob8fbq77y0a"]
 
 [ext_resource type="Script" path="res://src/grandma/cannon.gd" id="1_p5dcj"]
-[ext_resource type="Texture2D" uid="uid://frk0hx355l6q" path="res://assets/gfx/grandma/cannon.png" id="2_weijh"]
+[ext_resource type="Texture2D" uid="uid://dtudm14h1qjpe" path="res://assets/gfx/grandma/cannon.png" id="2_weijh"]
 
 [node name="CannonBarrel" type="Node2D"]
 script = ExtResource("1_p5dcj")

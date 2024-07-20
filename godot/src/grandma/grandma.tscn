@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://l0bs5d5chsgh"]
 
 [ext_resource type="Script" path="res://src/grandma/grandma.gd" id="1_8yr8d"]
-[ext_resource type="Texture2D" uid="uid://dkxn7n2ao28vx" path="res://assets/gfx/grandma/grandma-bg.png" id="2_feod5"]
+[ext_resource type="Texture2D" uid="uid://dhssdf6ldn8gu" path="res://assets/gfx/grandma/grandma-bg.png" id="2_feod5"]
 [ext_resource type="PackedScene" uid="uid://nob8fbq77y0a" path="res://src/grandma/cannon.tscn" id="3_4nk1i"]
-[ext_resource type="Texture2D" uid="uid://brxeyoseo75b4" path="res://assets/gfx/grandma/grandma-fg.png" id="4_l15ix"]
+[ext_resource type="Texture2D" uid="uid://glj5vpbxurxj" path="res://assets/gfx/grandma/grandma-fg.png" id="4_l15ix"]
 
 [node name="Grandma" type="PathFollow2D"]
 rotates = false
