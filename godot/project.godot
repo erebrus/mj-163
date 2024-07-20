@@ -31,6 +31,8 @@ PlayerAccounts="*res://addons/quiver_player_accounts/player_accounts.tscn"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://assets/gfx/ui-elements/reticle.png"
+mouse_cursor/custom_image_hotspot=Vector2(72, 66)
 
 [editor_plugins]
 
