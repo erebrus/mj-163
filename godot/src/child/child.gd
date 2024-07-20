@@ -20,7 +20,9 @@ var direction_since
 var on_screen_since=-1
 var happiness = 100
 var state := Types.ChildState.NORMAL
-var wanted_cake := Types.Cakes.ChocolateCupcake
+var wanted_cake := Types.DessertType.Cupcake
+var wanted_flavour := Types.Flavour.Chocolate
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var direction_timer: Timer = $DirectionTimer
 
@@ -43,6 +45,7 @@ func _ready() -> void:
 
 func _choose_cake():
 	wanted_cake = Types.DessertType.values().pick_random()
+	wanted_flavour = Types.Flavour.values().pick_random()
 	$Balloon.texture = Types.CakeTextures[wanted_cake]
 	
 func _physics_process(delta: float) -> void:	
@@ -120,9 +123,9 @@ func exited_arena()->void:
 	on_screen_since = -1
 	call_deferred("queue_free")
 
-func feed(cake)->void:	
+func feed(cake, flavour)->void:	
 	_hide_baloon()
-	if cake == wanted_cake:		
+	if true:#if cake == wanted_cake and flavour == wanted_flavour:		
 		Events.on_feed.emit(self, cake)
 		state = Types.ChildState.EATING
 		_update_state()

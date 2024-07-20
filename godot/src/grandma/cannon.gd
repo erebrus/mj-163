@@ -75,7 +75,7 @@ func point_at(target: Vector2) -> void:
 	rotation = angle + PI / 2
 	
 
-func shoot(dessert_type: Types.DessertType) -> void:
+func shoot(dessert_type: Types.DessertType, flavour: Types.Flavour) -> void:
 	Logger.info("Shooting at angle %.4fº" % rotation_degrees)
 	var BulletScene = DEFAULT_CAKE
 	if CAKES.has(dessert_type):
@@ -85,5 +85,5 @@ func shoot(dessert_type: Types.DessertType) -> void:
 	bullet.global_position = bullet_spawn.global_position
 	get_tree().root.add_child(bullet)
 	
-	bullet.shoot(dessert_type, rotation)
+	bullet.shoot(dessert_type, flavour, rotation)
 	

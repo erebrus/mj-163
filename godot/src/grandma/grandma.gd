@@ -8,7 +8,12 @@ var dessert_type:= Types.DessertType.Cupcake:
 	set(value):
 		dessert_type = value
 		dessert_sprite.dessert_type = value
-	
+
+var flavour:= Types.Flavour.Chocolate:
+	set(value):
+		flavour = value
+		dessert_sprite.flavour = value	
+		
 var current_ammo := 0:
 	set(value):
 		current_ammo = value
@@ -53,15 +58,16 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("shoot"):
 		if _has_ammo():
-			barrel.shoot(dessert_type)
+			barrel.shoot(dessert_type, flavour)
 			current_ammo -= 1
 		else:
 			# TODO: no ammo noise / animation
 			pass
 		
 
-func reload(_dessert_type: Types.DessertType) -> void:
+func reload(_dessert_type: Types.DessertType, _flavour: Types.Flavour) -> void:
 	dessert_type = _dessert_type
+	flavour = _flavour
 	current_ammo = 5
 	
 

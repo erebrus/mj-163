@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxmi6ni1phyla"]
+
+[ext_resource type="Script" path="res://src/child/thought_bubble.gd" id="1_edbx6"]
+[ext_resource type="Texture2D" uid="uid://dhipi5p1rfx5i" path="res://assets/gfx/thought-bubble/bubble-3.png" id="1_rfb7m"]
+[ext_resource type="Texture2D" uid="uid://cwjeen0iwa1r2" path="res://assets/gfx/thought-bubble/strawberry.png" id="2_nu88w"]
+
+[node name="ThoughtBubble" type="Node2D"]
+script = ExtResource("1_edbx6")
+
+[node name="Bubble" type="Sprite2D" parent="."]
+position = Vector2(-16, -72)
+texture = ExtResource("1_rfb7m")
+
+[node name="Content" type="Sprite2D" parent="Bubble"]
+position = Vector2(0, -16)
+texture = ExtResource("2_nu88w")

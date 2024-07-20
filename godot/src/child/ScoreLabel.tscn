@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmqprbb73tdas"]
+[gd_scene load_steps=3 format=3 uid="uid://dmqprbb73tdas"]
 
 [ext_resource type="Script" path="res://src/child/score_label.gd" id="1_vxc25"]
+[ext_resource type="FontFile" uid="uid://bq8pv3ex6ljl6" path="res://assets/fonts/Heyho-Regular.ttf.otf" id="2_xuj8m"]
 
 [node name="ScoreLabel" type="Node2D"]
 script = ExtResource("1_vxc25")
@@ -8,7 +9,8 @@ script = ExtResource("1_vxc25")
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("2_xuj8m")
+theme_override_font_sizes/font_size = 128
 text = "1000"
 
 [node name="Timer" type="Timer" parent="."]

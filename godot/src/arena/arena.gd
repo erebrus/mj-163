@@ -94,7 +94,7 @@ func _on_arena_area_body_exited(body: Node2D) -> void:
 
 func _on_feed(child:Child, cake):
 	var l = ScoreScene.instantiate()
-	l.global_position = child.global_position-Vector2(-64, 250)
+	l.global_position = child.global_position-Vector2(-64, 300)
 	var score_delta = Types.ScoreTable[child.get_state_from_happiness()]
 	l.set_score(score_delta)
 	add_child(l)
