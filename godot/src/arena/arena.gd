@@ -10,12 +10,14 @@ const ChildScene:PackedScene = preload("res://src/child/child.tscn")
 
 var child_count:int = 0
 var start_time:int=0
+var score=0
+
 func _ready() -> void:
 	_init_areas()
 	start_time = Time.get_ticks_msec()
 	Events.child_entered_arena.connect(func(x): child_count+= 1)
 	Events.child_exited_arena.connect(func(x): child_count-= 1)
-
+	Events.on_feed.connect(_on_feed)
 func get_time_from_start()->int:
 	return Time.get_ticks_msec()-start_time
 
@@ -66,3 +68,11 @@ func _on_arena_area_body_entered(body: Node2D) -> void:
 func _on_arena_area_body_exited(body: Node2D) -> void:
 	if body.has_method("exited_arena"):
 		body.exited_arena()
+
+func _on_feed(child:Child, cake):
+	score += Types.ScoreTable[child.state]
+	_update_hud()
+	
+func _update_hud():
+	Logger.info("new score: %d" % [score])
+	
