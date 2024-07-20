@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://l0bs5d5chsgh"]
+
+[ext_resource type="Script" path="res://src/grandma/grandma.gd" id="1_8yr8d"]
+[ext_resource type="Texture2D" uid="uid://b82ht2v87lf6s" path="res://assets/gfx/grandma.png" id="1_m0v4f"]
+[ext_resource type="PackedScene" uid="uid://nob8fbq77y0a" path="res://src/grandma/cannon.tscn" id="3_4nk1i"]
+
+[node name="Grandma" type="PathFollow2D"]
+rotates = false
+loop = false
+script = ExtResource("1_8yr8d")
+
+[node name="GrandmaSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -105)
+texture = ExtResource("1_m0v4f")
+
+[node name="Cannon" type="Node2D" parent="."]
+
+[node name="MaxAngle" type="Marker2D" parent="Cannon"]
+position = Vector2(70, -145)
+
+[node name="MinAngle" type="Marker2D" parent="Cannon"]
+position = Vector2(204, -54)
+
+[node name="CannonBarrel" parent="Cannon" instance=ExtResource("3_4nk1i")]
+unique_name_in_owner = true
+position = Vector2(44, -54)
