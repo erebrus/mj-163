@@ -25,6 +25,12 @@ func _ready() -> void:
 	
 	#await Leaderboards.post_guest_score("cake-sharing-happiness-score-S7ha", 100.0, "player_name")
 	
+
+func _input(event):
+	if event.is_action_pressed("restart"):
+		get_tree().reload_current_scene()
+	
+
 func get_time_from_start()->int:
 	return (Time.get_ticks_msec()-start_time) / 1000.0
 
