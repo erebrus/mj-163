@@ -40,10 +40,14 @@ var on_screen_since=-1
 var happiness = 100
 var state := Types.ChildState.NORMAL
 var wanted_cake := Types.Cakes.ChocolateCupcake
+var cry_tween: Tween
+
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var direction_timer: Timer = $DirectionTimer
 @onready var head_sprite: Sprite2D = %Head
 @onready var body_sprite: Sprite2D = %Body
+@onready var head_pivot: Node2D = $Sprites/HeadPivot
 
 
 func _ready() -> void:
@@ -100,7 +104,13 @@ func _update_happiness(delta:float)->void:
 	
 func _update_state():
 	if not state in BUSY_STATES:
-		state = get_state_from_happiness()
+		var new_state = get_state_from_happiness()
+		if new_state != state:
+			if new_state == Types.ChildState.CRYING:
+				_cry()
+			else:
+				_stop_crying()
+			state = new_state
 	
 	var is_walking = state in WALKING_STATES
 	
@@ -121,7 +131,8 @@ func _update_state():
 	else:
 		body_sprite.hframes = 1
 		animation_player.play("sit")
-
+		if state != Types.ChildState.CRYING:
+			head_pivot.rotation = 0
 
 func change_direction():	
 	velocity.y = randi_range(-30,30)/100.0*SPEED
@@ -198,3 +209,26 @@ func _on_direction_timer_timeout() -> void:
 			change_direction()	
 		direction_timer.wait_time = MIN_DIRECTION_CHANGE_TIME+  randf()*(MAX_DIRECTION_CHANGE_TIME-MIN_DIRECTION_CHANGE_TIME)
 		direction_timer.start()
+	
+
+func _cry() -> void:
+	if cry_tween:
+		cry_tween.kill()
+	cry_tween = create_tween()
+	
+	var angle = randf_range(25, 50)
+	if randi() % 2 == 1:
+		angle = -angle
+	
+	head_pivot.rotation = 0
+	cry_tween.tween_property(head_pivot, "rotation", deg_to_rad(angle), 0.3).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+	cry_tween.tween_interval(randf_range(1, 4))
+	cry_tween.tween_property(head_pivot, "rotation", 0, 0.3).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+	cry_tween.tween_interval(randf_range(0, 0.5))
+	cry_tween.tween_callback(_cry)
+	
+
+func _stop_crying() -> void:
+	if cry_tween:
+		cry_tween.kill()
+	
