@@ -1266,6 +1266,7 @@ _data = {
 }
 
 [node name="Child" type="CharacterBody2D" groups=["children"]]
+y_sort_enabled = true
 collision_layer = 4
 script = ExtResource("1_l4c32")
 

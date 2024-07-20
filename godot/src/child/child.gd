@@ -136,9 +136,11 @@ func check_reaction(cake):
 		
 func _hide_baloon():
 	$Balloon.hide()
+	$CollisionShape2D.disabled = true
 
 func _show_baloon():
 	$Balloon.show()
+	$CollisionShape2D.disabled = false
 
 func leave():
 	state = Types.ChildState.LEAVING
