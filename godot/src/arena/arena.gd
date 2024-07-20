@@ -6,7 +6,10 @@ const ChildScene:PackedScene = preload("res://src/child/child.tscn")
 @export var area_rows :=3
 @export var y_area_margin := 100.0
 
+@export var initial_spawn_rate := 5.0
+@export var time_to_double := 10.0
 @onready var spawn_timer: Timer = $SpawnTimer
+@onready var timer: Timer = $Timer
 
 var child_count:int = 0
 var start_time:int=0
@@ -22,7 +25,7 @@ func _ready() -> void:
 	#await Leaderboards.post_guest_score("cake-sharing-happiness-score-S7ha", 100.0, "player_name")
 	
 func get_time_from_start()->int:
-	return Time.get_ticks_msec()-start_time
+	return (Time.get_ticks_msec()-start_time) / 1000.0
 
 func _init_areas() -> void:
 	for i in range(area_rows):
@@ -61,7 +64,10 @@ func get_best_area()-> DetectionArea:
 
 func _on_spawn_timer_timeout() -> void:
 	spawn_child()
-
+	var interval = initial_spawn_rate / pow(2,get_time_from_start() / time_to_double)
+	Logger.debug("next spawn in %d s" % [interval])
+	spawn_timer.wait_time = interval
+	spawn_timer.start()
 
 func _on_arena_area_body_entered(body: Node2D) -> void:
 	if body.has_method("entered_arena"):

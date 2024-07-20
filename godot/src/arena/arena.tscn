@@ -12,6 +12,7 @@ script = ExtResource("1_1uucj")
 [node name="Areas" type="Node2D" parent="."]
 
 [node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
 autostart = true
 
 [node name="ArenaArea" type="Area2D" parent="."]

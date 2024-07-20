@@ -3,6 +3,9 @@ class_name Child
 
 const EATING_TIME=3
 const REACTING_TIME=3
+const INITIAL_HAPPINESS_RATE =5.0
+const TIME_TO_HIGHER_RATE :=30.0
+const MAX_HAPPINESS_RATE :=15.0
 
 const MIN_DIRECTION_CHANGE_TIME = 20 * 1000
 const SPEED = 100.0
@@ -14,8 +17,10 @@ var on_screen_since=-1
 var happiness = 100
 var state := Types.ChildState.NORMAL
 
-func _physics_process(delta: float) -> void:
-	_update_happiness()
+#func _ready() -> void:
+	#Events.tick.connect(_on_tick)
+func _physics_process(delta: float) -> void:	
+	_update_happiness(delta)
 	if should_move():
 		if not state == Types.ChildState.LEAVING:	
 			check_crazy_ivan()	
@@ -27,18 +32,24 @@ func _physics_process(delta: float) -> void:
 func get_state_from_happiness():
 	if happiness == 0:
 		return Types.ChildState.CRYING
-	elif happiness < 10:
+	elif happiness < 30:
 		return Types.ChildState.ABOUT_TO_CRY
-	elif happiness < 50:
+	elif happiness < 60:
 		return Types.ChildState.UPSET
 	else:
 		return Types.ChildState.NORMAL
 
-func _update_happiness()->void:
+#func _on_tick():
+#	_update_happiness()
+	
+func _update_happiness(delta:float)->void:
 	if state == Types.ChildState.EATING:
 		return
 	if happiness>0:
-		happiness = clamp(100 - get_time_on_screen()/1000*4, 0, 100)
+		 #amountLostPerSecond = initial + (t/r)
+		var rate = clamp(INITIAL_HAPPINESS_RATE + (get_time_on_screen()/TIME_TO_HIGHER_RATE),1.0,MAX_HAPPINESS_RATE)*delta
+		#happiness = clamp(100 - get_time_on_screen()/1000*4, 0, 100)
+		happiness = clamp(happiness- rate, 0, 100)
 	_update_state()
 	
 func _update_state():
@@ -67,7 +78,7 @@ func _update_state():
 func check_crazy_ivan():
 	var now = Time.get_ticks_msec()
 	if now - direction_since > MIN_DIRECTION_CHANGE_TIME and randf() < .005:
-		Logger.info("%s changing direction" % [name])
+		Logger.debug("%s changing direction" % [name])
 		velocity.x *= -1
 		direction_since = now
 
@@ -76,13 +87,13 @@ func set_initial_velocity ( direction:Types.Direction ) -> void:
 	direction_since = Time.get_ticks_msec()
 
 func entered_arena()->void:
-	Logger.info("Child %s entered arena" % [name])
+	Logger.debug("Child %s entered arena" % [name])
 	Events.child_entered_arena.emit(self)
 	on_screen_since = Time.get_ticks_msec()
 	
 func exited_arena()->void:
 	Events.child_exited_arena.emit(self)
-	Logger.info("Child %s left arena" % [name])
+	Logger.debug("Child %s left arena" % [name])
 	on_screen_since = -1
 	call_deferred("queue_free")
 
@@ -90,7 +101,7 @@ func feed(cake)->void:
 	
 	state = Types.ChildState.EATING
 	_update_state()
-	Logger.info("Child %s fed with %s" % [name, cake.name])
+	Logger.debug("Child %s fed with %s" % [name, cake.name])
 	await get_tree().create_timer(EATING_TIME).timeout 
 	check_reaction(cake)
 	
@@ -118,8 +129,8 @@ func should_move()->bool:
 func is_on_screen()->bool:
 	return on_screen_since!=-1
 	
-func get_time_on_screen()-> int:
+func get_time_on_screen()-> float:
 	if on_screen_since>-1:
-		return Time.get_ticks_msec() - on_screen_since
+		return (Time.get_ticks_msec() - on_screen_since) / 1000.0
 	else:
 		return -1
