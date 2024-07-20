@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://8wxmbdgpdkst"]
+[gd_scene load_steps=5 format=3 uid="uid://8wxmbdgpdkst"]
 
 [ext_resource type="Script" path="res://src/dessert_table/dessert_stand.gd" id="1_kmaad"]
 [ext_resource type="Texture2D" uid="uid://bifixc3l3xuge" path="res://assets/gfx/foreground/cakestand.png" id="2_pomke"]
-[ext_resource type="PackedScene" uid="uid://d01baxvliu54e" path="res://src/grandma/cake/dessert_sprite.tscn" id="3_orcok"]
-[ext_resource type="Texture2D" uid="uid://dfl7snxcu46jl" path="res://assets/gfx/desserts/donut.png" id="4_csbbp"]
+[ext_resource type="PackedScene" uid="uid://bo160ji4aulmn" path="res://src/grandma/cake/dessert_sprite.tscn" id="3_orcok"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qki03"]
 size = Vector2(323, 151.75)
@@ -17,7 +16,7 @@ texture = ExtResource("2_pomke")
 
 [node name="DessertSprite" parent="." instance=ExtResource("3_orcok")]
 position = Vector2(0, -64)
-texture = ExtResource("4_csbbp")
+frame = 2
 dessert_type = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -6,10 +6,14 @@ class_name DessertSprite extends Sprite2D
 		dessert_type = value
 		_setup()
 
+@export var flavour: Types.Flavour:
+	set(value):
+		flavour = value
+		_setup()
  
 func _ready():
 	_setup()
 	
 
 func _setup():
-	texture = Types.DESSERT_TEXTURES[dessert_type]
+	frame_coords = Vector2i(dessert_type, flavour)

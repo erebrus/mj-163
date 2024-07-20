@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://chhl2p7pu8fpk"]
+[gd_scene load_steps=4 format=3 uid="uid://chhl2p7pu8fpk"]
 
 [ext_resource type="Script" path="res://src/grandma/cake/bullet.gd" id="1_2ya1w"]
-[ext_resource type="PackedScene" uid="uid://d01baxvliu54e" path="res://src/grandma/cake/dessert_sprite.tscn" id="2_0g3p3"]
-[ext_resource type="Texture2D" uid="uid://cvprullnurv32" path="res://assets/gfx/desserts/cupcake.png" id="3_tep0g"]
+[ext_resource type="PackedScene" uid="uid://bo160ji4aulmn" path="res://src/grandma/cake/dessert_sprite.tscn" id="2_0g3p3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mpref"]
 radius = 46.8188
@@ -13,7 +12,8 @@ collision_mask = 4
 script = ExtResource("1_2ya1w")
 
 [node name="DessertSprite" parent="." instance=ExtResource("2_0g3p3")]
-texture = ExtResource("3_tep0g")
+frame = 0
+flavour = 0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

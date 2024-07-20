@@ -6,6 +6,16 @@ const DESSERT_TEXTURES = {
 	Types.DessertType.Donut: preload("res://assets/gfx/desserts/donut.png"),
 }
 
+const PATTERN_TEXTURES =  [
+	preload("res://assets/gfx/thought-bubble/chocolate.png"), 
+	preload("res://assets/gfx/thought-bubble/silhouette-cake.png"), 
+	preload("res://assets/gfx/thought-bubble/silhouette-cupcake.png"), 
+	preload("res://assets/gfx/thought-bubble/silhouette-donut.png"), 
+	preload("res://assets/gfx/thought-bubble/strawberry.png")
+]
+
+
+
 # TODO: replace whoever is using this with DessertSprite?
 var CakeTextures := DESSERT_TEXTURES.values()
 
@@ -23,10 +33,25 @@ enum Cakes {
 
 enum DessertType {
 	Cupcake,
-	Cake,
 	Donut,
+	Cake,
+	
 }
 
+
+
+enum Flavour {
+	Chocolate,
+	Strawberry
+}
+
+enum Pattern {
+	Chocolate,
+	Cake,
+	Cupcake,
+	Donut,	
+	Strawberry
+}
 
 const ScoreTable := {
 	ChildState.CRYING : 50,
