@@ -8,7 +8,8 @@ var cake_type:= Types.Cakes.StrawberryCupcake
 var current_direction := Types.Direction.RIGHT
 
 
-@onready var grandma_sprite: Sprite2D = %GrandmaSprite
+@onready var grandma_background: Sprite2D = %GrandmaBackground
+@onready var grandma_foreground: Sprite2D = %GrandmaForeground
 @onready var barrel: CannonBarrel = %CannonBarrel
 
 
@@ -53,7 +54,8 @@ func _change_ammo(direction: int) -> void:
 
 func _face(direction: int) -> void:
 	current_direction = direction
-	grandma_sprite.flip_h = direction == Types.Direction.LEFT
+	grandma_background.flip_h = direction == Types.Direction.LEFT
+	grandma_foreground.flip_h = direction == Types.Direction.LEFT
 	barrel.flip_h = direction == Types.Direction.LEFT
 	barrel.position.x = -barrel.position.x
 	

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b82ht2v87lf6s"
-path="res://.godot/imported/grandma.png-899b2b17c5857052fd9e6743857160e5.ctex"
+uid="uid://ceq1b1qnm4wxa"
+path="res://.godot/imported/silhouette-cupcake.png-540be512f84440c5b100dd82833c8dc1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/grandma.png"
-dest_files=["res://.godot/imported/grandma.png-899b2b17c5857052fd9e6743857160e5.ctex"]
+source_file="res://assets/gfx/thought-bubble/silhouette-cupcake.png"
+dest_files=["res://.godot/imported/silhouette-cupcake.png-540be512f84440c5b100dd82833c8dc1.ctex"]
 
 [params]
 
