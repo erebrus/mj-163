@@ -1,11 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://l0bs5d5chsgh"]
+[gd_scene load_steps=9 format=3 uid="uid://l0bs5d5chsgh"]
 
 [ext_resource type="Script" path="res://src/grandma/grandma.gd" id="1_8yr8d"]
 [ext_resource type="Texture2D" uid="uid://dhssdf6ldn8gu" path="res://assets/gfx/grandma/grandma-bg.png" id="2_feod5"]
 [ext_resource type="PackedScene" uid="uid://nob8fbq77y0a" path="res://src/grandma/cannon.tscn" id="3_4nk1i"]
 [ext_resource type="Texture2D" uid="uid://glj5vpbxurxj" path="res://assets/gfx/grandma/grandma-fg.png" id="4_l15ix"]
 [ext_resource type="PackedScene" uid="uid://d01baxvliu54e" path="res://src/grandma/cake/dessert_sprite.tscn" id="4_ungno"]
-[ext_resource type="Texture2D" uid="uid://8qdcffos5bve" path="res://assets/gfx/desserts/cheesecake.png" id="5_shcyn"]
+[ext_resource type="Texture2D" uid="uid://cvprullnurv32" path="res://assets/gfx/desserts/cupcake.png" id="5_4cglk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qx6y6"]
+line_spacing = 0.0
+font_size = 30
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0ipl"]
+size = Vector2(251.5, 163)
 
 [node name="Grandma" type="PathFollow2D"]
 rotates = false
@@ -33,10 +40,36 @@ rotation = 1.1973
 [node name="DessertSprite" parent="." instance=ExtResource("4_ungno")]
 unique_name_in_owner = true
 position = Vector2(-132, -148)
-texture = ExtResource("5_shcyn")
-dessert_type = null
+texture = ExtResource("5_4cglk")
+
+[node name="AmmoCounter" type="Node2D" parent="."]
+position = Vector2(-174, -233)
+
+[node name="AmmoLabel" type="Label" parent="AmmoCounter"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -21.0
+offset_right = 20.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+label_settings = SubResource("LabelSettings_qx6y6")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="GrandmaForeground" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -160)
 texture = ExtResource("4_l15ix")
+
+[node name="StandDetector" type="Area2D" parent="."]
+position = Vector2(0, -227)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StandDetector"]
+shape = SubResource("RectangleShape2D_r0ipl")

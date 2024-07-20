@@ -1,16 +1,27 @@
-extends PathFollow2D
+class_name Grandma extends PathFollow2D
 
 
 @export var speed:= 500
 
 
-var dessert_type:= Types.DessertType.Cupcake
-var current_direction := Types.Direction.RIGHT
+var dessert_type:= Types.DessertType.Cupcake:
+	set(value):
+		dessert_type = value
+		dessert_sprite.dessert_type = value
+	
+var current_ammo := 0:
+	set(value):
+		current_ammo = value
+		dessert_sprite.visible = _has_ammo()
+		ammo_label.text = "%s" % current_ammo
 
+var current_direction := Types.Direction.RIGHT
 
 @onready var grandma_background: Sprite2D = %GrandmaBackground
 @onready var grandma_foreground: Sprite2D = %GrandmaForeground
 @onready var dessert_sprite: DessertSprite = %DessertSprite
+@onready var ammo_panel: Node2D = $AmmoCounter
+@onready var ammo_label: Label = %AmmoLabel
 @onready var barrel: CannonBarrel = %CannonBarrel
 
 
@@ -19,6 +30,7 @@ func _ready() -> void:
 	var min_angle = barrel.position.angle_to_point($Cannon/MinAngle.position)
 	barrel.max_angle = max_angle
 	barrel.min_angle = min_angle
+	current_ammo = 0
 	
 
 func _physics_process(delta: float) -> void:
@@ -29,18 +41,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		_stop()
 	
-	if Input.is_action_just_pressed("wheel_up"):
-		_change_ammo(1)
-	if Input.is_action_just_pressed("wheel_down"):
-		_change_ammo(-1)
-	
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("wheel_up"):
-		_change_ammo(1)
-	if event.is_action_pressed("wheel_down"):
-		_change_ammo(-1)
-	
 	if event is InputEventMouseMotion:
 		var mouse_position = get_local_mouse_position()
 		var direction = mouse_position.x / abs(mouse_position.x)
@@ -50,12 +52,21 @@ func _input(event: InputEvent) -> void:
 		barrel.point_at(mouse_position)
 	
 	if event.is_action_pressed("shoot"):
-		barrel.shoot(dessert_type)
+		if _has_ammo():
+			barrel.shoot(dessert_type)
+			current_ammo -= 1
+		else:
+			# TODO: no ammo noise / animation
+			pass
+		
+
+func reload(_dessert_type: Types.DessertType) -> void:
+	dessert_type = _dessert_type
+	current_ammo = 5
 	
 
-func _change_ammo(direction: int) -> void:
-	dessert_type = posmod(int(dessert_type) + direction, Types.DessertType.size())
-	dessert_sprite.dessert_type = dessert_type
+func _has_ammo() -> bool:
+	return current_ammo > 0
 	
 
 func _face(direction: int) -> void:
@@ -65,6 +76,7 @@ func _face(direction: int) -> void:
 	barrel.flip_h = direction == Types.Direction.LEFT
 	barrel.position.x = -barrel.position.x
 	dessert_sprite.position.x = -dessert_sprite.position.x
+	ammo_panel.position.x = -ammo_panel.position.x
 	
 
 func _move(direction: int, delta: float) -> void:
