@@ -7,7 +7,11 @@ const INITIAL_HAPPINESS_RATE =5.0
 const TIME_TO_HIGHER_RATE :=30.0
 const MAX_HAPPINESS_RATE :=15.0
 
-const MIN_DIRECTION_CHANGE_TIME = 20 * 1000
+
+
+
+const MIN_DIRECTION_CHANGE_TIME = 6 
+const MAX_DIRECTION_CHANGE_TIME = 20 
 const SPEED = 100.0
 const MIN_Y = 300.0
 const MAX_Y = 760.0
@@ -37,18 +41,26 @@ var happiness = 100
 var state := Types.ChildState.NORMAL
 var wanted_cake := Types.Cakes.ChocolateCupcake
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var direction_timer: Timer = $DirectionTimer
 @onready var head_sprite: Sprite2D = %Head
 @onready var body_sprite: Sprite2D = %Body
 
 
 func _ready() -> void:
-	happiness= 100+randi_range(-10,10)
+	happiness= 100+randi_range(-20,10)
 	_choose_cake()
 	_update_state()
+	var wt = MIN_DIRECTION_CHANGE_TIME + randf()*MIN_DIRECTION_CHANGE_TIME
+	
+	direction_timer.wait_time = wt
+	direction_timer.start()
+	
 	HyperLog.log(self).text("velocity>round")
 	HyperLog.log(self).text("position>round")
 	HyperLog.log(self).text("state")
 	HyperLog.log(self).size = Vector2(100,100)
+	
+	
 
 func _choose_cake():
 	wanted_cake = Types.DessertType.values().pick_random()
@@ -58,8 +70,6 @@ func _physics_process(delta: float) -> void:
 	_update_happiness(delta)
 	$Balloon.offset.x = 128 if velocity.x > 0 else -128
 	if should_move():
-		if not state == Types.ChildState.LEAVING:	
-			check_crazy_ivan()	
 		move_and_slide()
 		if global_position.y > MAX_Y and velocity.y > 0 or \
 			global_position.y < MIN_Y and velocity.y < 0:
@@ -111,14 +121,12 @@ func _update_state():
 	else:
 		body_sprite.hframes = 1
 		animation_player.play("sit")
-	
 
-func check_crazy_ivan():
-	var now = Time.get_ticks_msec()
-	if now - direction_since > MIN_DIRECTION_CHANGE_TIME and randf() < .005:
-		Logger.debug("%s changing direction" % [name])
+
+func change_direction():	
+	velocity.y = randi_range(-30,30)/100.0*SPEED
+	if randf()>.3:
 		velocity.x *= -1
-		direction_since = now
 
 func set_initial_velocity ( direction:Types.Direction ) -> void:
 	velocity = Vector2(direction,randi_range(-30,30)/100.0)*SPEED
@@ -182,3 +190,11 @@ func get_time_on_screen()-> float:
 
 func accepts_cake()-> bool:
 	return $Balloon.visible
+
+
+func _on_direction_timer_timeout() -> void:
+	if state != Types.ChildState.LEAVING:	
+		if should_move:
+			change_direction()	
+		direction_timer.wait_time = MIN_DIRECTION_CHANGE_TIME+  randf()*(MAX_DIRECTION_CHANGE_TIME-MIN_DIRECTION_CHANGE_TIME)
+		direction_timer.start()

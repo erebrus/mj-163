@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s62id6vikx4i"
-path="res://.godot/imported/disgust.png-9122fef77331c36e0f3b7ee299404c44.ctex"
+uid="uid://ct3k8mgltuhxp"
+path="res://.godot/imported/disgust.png-fa6a638136814980e78d12d2ea21b95f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gfx/kids/faces/skin-1.2/disgust.png"
-dest_files=["res://.godot/imported/disgust.png-9122fef77331c36e0f3b7ee299404c44.ctex"]
+source_file="res://assets/gfx/kids/faces/skin-2.2/disgust.png"
+dest_files=["res://.godot/imported/disgust.png-fa6a638136814980e78d12d2ea21b95f.ctex"]
 
 [params]
 
