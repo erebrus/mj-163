@@ -29,7 +29,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if eaten:
 		return
 	
-	if body.is_in_group("children"):
+	if body.is_in_group("children") and body.accepts_cake():
 		eaten = true
 		body.feed(dessert_type)
 		call_deferred("queue_free")

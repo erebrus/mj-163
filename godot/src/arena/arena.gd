@@ -44,7 +44,7 @@ func spawn_child():
 	var area := get_best_area()
 	var child = ChildScene.instantiate()
 	child.global_position = area.get_spawn_point()
-	add_child(child)
+	$ArenaArea/Kids.add_child(child)
 	Logger.info("Child added %s at %s" % [child.name, child.global_position])
 	child.set_initial_velocity(area.direction*-1)
 	
