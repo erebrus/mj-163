@@ -73,7 +73,7 @@ func _on_arena_area_body_exited(body: Node2D) -> void:
 		body.exited_arena()
 
 func _on_feed(child:Child, cake):
-	score += Types.ScoreTable[child.state]
+	score += Types.ScoreTable[child.get_state_from_happiness()]
 	_update_hud()
 	
 func _update_hud():
