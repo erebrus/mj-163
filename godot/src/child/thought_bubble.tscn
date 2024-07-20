@@ -2,15 +2,14 @@
 
 [ext_resource type="Script" path="res://src/child/thought_bubble.gd" id="1_edbx6"]
 [ext_resource type="Texture2D" uid="uid://dhipi5p1rfx5i" path="res://assets/gfx/thought-bubble/bubble-3.png" id="1_rfb7m"]
-[ext_resource type="Texture2D" uid="uid://cwjeen0iwa1r2" path="res://assets/gfx/thought-bubble/strawberry.png" id="2_nu88w"]
+[ext_resource type="Texture2D" uid="uid://37qvmsljccr8" path="res://assets/gfx/thought-bubble/silhouette-cake.png" id="3_3oplb"]
 
-[node name="ThoughtBubble" type="Node2D"]
-script = ExtResource("1_edbx6")
-
-[node name="Bubble" type="Sprite2D" parent="."]
+[node name="ThoughtBubble" type="Sprite2D"]
 position = Vector2(-16, -72)
 texture = ExtResource("1_rfb7m")
+script = ExtResource("1_edbx6")
 
-[node name="Content" type="Sprite2D" parent="Bubble"]
+[node name="Content" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
-texture = ExtResource("2_nu88w")
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_3oplb")

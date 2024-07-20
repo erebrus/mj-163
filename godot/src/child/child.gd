@@ -39,8 +39,7 @@ var direction_since
 var on_screen_since=-1
 var happiness = 100
 var state := Types.ChildState.NORMAL
-var wanted_cake := Types.DessertType.Cupcake
-var wanted_flavour := Types.Flavour.Chocolate
+
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var direction_timer: Timer = $DirectionTimer
@@ -65,13 +64,18 @@ func _ready() -> void:
 	
 
 func _choose_cake():
-	wanted_cake = Types.DessertType.values().pick_random()
-	wanted_flavour = Types.Flavour.values().pick_random()
-	$Balloon.texture = Types.CakeTextures[wanted_cake]
+	var bubble = $ThoughtBubble
+	$ThoughtBubble.thought_pattern = Types.Pattern.values().pick_random()
 	
 func _physics_process(delta: float) -> void:	
 	_update_happiness(delta)
-	$Balloon.offset.x = 128 if velocity.x > 0 else -128
+	if velocity.x > 0:		
+		$ThoughtBubble.position.x = -64  
+		$ThoughtBubble.flip_h = true
+	else:
+		$ThoughtBubble.position.x = 64  
+		$ThoughtBubble.flip_h = false
+		
 	if should_move():
 		move_and_slide()
 		if global_position.y > MAX_Y and velocity.y > 0 or \
@@ -148,7 +152,7 @@ func exited_arena()->void:
 
 func feed(cake, flavour)->void:	
 	_hide_baloon()
-	if true:#if cake == wanted_cake and flavour == wanted_flavour:		
+	if $ThoughtBubble.pattern_matches(cake, flavour):
 		Events.on_feed.emit(self, cake)
 		state = Types.ChildState.EATING
 		_update_state()
@@ -167,10 +171,10 @@ func feed(cake, flavour)->void:
 	
 
 func _hide_baloon():
-	$Balloon.hide()
+	$ThoughtBubble.hide()
 
 func _show_baloon():
-	$Balloon.show()
+	$ThoughtBubble.show()
 
 func leave():
 	state = Types.ChildState.LEAVING
@@ -192,7 +196,7 @@ func get_time_on_screen()-> float:
 		return -1
 
 func accepts_cake()-> bool:
-	return $Balloon.visible
+	return $ThoughtBubble.visible
 
 
 func _on_direction_timer_timeout() -> void:

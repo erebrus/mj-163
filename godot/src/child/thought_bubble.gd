@@ -1,13 +1,19 @@
-extends Node2D
+extends Sprite2D
+class_name ThoughtBubble
 
-@export var pattern:=Types.Pattern:
+@export var thought_pattern:=Types.Pattern.Chocolate:
 	set(v):
-		pattern = v
-		$Bubble/Content.texture = Types.PATTERN_TEXTURES[pattern]
+		thought_pattern = v
+		$Content.texture = Types.PATTERN_TEXTURES[thought_pattern]
+		if v  != Types.Flavour.Chocolate and v != Types.Flavour.Strawberry:
+			$Content.scale=Vector2.ONE * .75
+		else:
+			$Content.scale=Vector2.ONE *1.0
+			
 
 
 func pattern_matches(dessert_type:Types.DessertType, flavour:Types.Flavour)->bool:
-	match pattern:
+	match thought_pattern:
 		Types.Pattern.Chocolate:
 			return flavour == Types.Flavour.Chocolate
 		Types.Pattern.Strawberry:
@@ -18,4 +24,4 @@ func pattern_matches(dessert_type:Types.DessertType, flavour:Types.Flavour)->boo
 			return dessert_type == Types.DessertType.Cupcake
 		Types.Pattern.Donut:
 			return dessert_type == Types.DessertType.Donut
-	return false
+	return false 

@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3vcrbvu1nfgu"]
 
 [ext_resource type="Script" path="res://src/child/child.gd" id="1_l4c32"]
-[ext_resource type="Texture2D" uid="uid://8qdcffos5bve" path="res://assets/gfx/desserts/cheesecake.png" id="2_jqinp"]
 [ext_resource type="Texture2D" uid="uid://bhvl3lml3r7qt" path="res://assets/gfx/kids/body-types/clothes-1-skin-1-walk.png" id="3_e1n3f"]
 [ext_resource type="Texture2D" uid="uid://boom1j7j1wuxp" path="res://assets/gfx/kids/faces/skin-1.1/walk-happy.png" id="4_w74ki"]
 [ext_resource type="AnimationLibrary" uid="uid://c6lt5hj23useu" path="res://src/child/animations.tres" id="5_a5ow7"]
+[ext_resource type="PackedScene" uid="uid://cxmi6ni1phyla" path="res://src/child/thought_bubble.tscn" id="5_uodt6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ifiyd"]
 size = Vector2(80, 128)
@@ -16,11 +16,6 @@ script = ExtResource("1_l4c32")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -64)
 shape = SubResource("RectangleShape2D_ifiyd")
-
-[node name="Balloon" type="Sprite2D" parent="."]
-position = Vector2(8, -280)
-texture = ExtResource("2_jqinp")
-offset = Vector2(128, 0)
 
 [node name="Sprites" type="Node2D" parent="."]
 position = Vector2(0, -73)
@@ -43,5 +38,8 @@ libraries = {
 
 [node name="DirectionTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ThoughtBubble" parent="." instance=ExtResource("5_uodt6")]
+position = Vector2(64, -344)
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

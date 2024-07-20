@@ -18,7 +18,6 @@ texture = ExtResource("2_pomke")
 position = Vector2(0, -64)
 frame = 2
 dessert_type = 2
-flavour = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -30)
