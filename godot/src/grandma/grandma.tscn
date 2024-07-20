@@ -39,8 +39,6 @@ rotation = 1.1973
 [node name="DessertSprite" parent="." instance=ExtResource("4_ungno")]
 unique_name_in_owner = true
 position = Vector2(-132, -148)
-frame = 0
-flavour = 0
 
 [node name="AmmoCounter" type="Node2D" parent="."]
 position = Vector2(-174, -233)

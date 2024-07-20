@@ -1,7 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3vcrbvu1nfgu"]
 
 [ext_resource type="Script" path="res://src/child/child.gd" id="1_l4c32"]
-[ext_resource type="Texture2D" uid="uid://8qdcffos5bve" path="res://assets/gfx/desserts/cheesecake.png" id="2_jqinp"]
 [ext_resource type="Texture2D" uid="uid://bqxx8qa6g5fbo" path="res://assets/gfx/kids/body-types/clothes-1-skin-1.png" id="3_halj3"]
 [ext_resource type="Texture2D" uid="uid://ygkcleuqveus" path="res://assets/gfx/kids/faces/skin-3.1/cry.png" id="4_yrejj"]
 [ext_resource type="AnimationLibrary" uid="uid://c6lt5hj23useu" path="res://src/child/animations.tres" id="5_a5ow7"]
