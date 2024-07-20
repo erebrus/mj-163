@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3vcrbvu1nfgu"]
+[gd_scene load_steps=4 format=3 uid="uid://c3vcrbvu1nfgu"]
 
 [ext_resource type="Script" path="res://src/child/child.gd" id="1_l4c32"]
+[ext_resource type="Texture2D" uid="uid://8qdcffos5bve" path="res://assets/gfx/desserts/cheesecake.png" id="2_jqinp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ifiyd"]
 size = Vector2(80, 128)
@@ -14,3 +15,8 @@ polygon = PackedVector2Array(-40, -64, 40, -64, 40, 64, -40, 64)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ifiyd")
+
+[node name="Balloon" type="Sprite2D" parent="."]
+position = Vector2(0, -120)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_jqinp")

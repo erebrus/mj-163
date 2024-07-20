@@ -16,9 +16,15 @@ var direction_since
 var on_screen_since=-1
 var happiness = 100
 var state := Types.ChildState.NORMAL
+var wanted_cake := Types.Cakes.ChocolateCupcake
 
-#func _ready() -> void:
-	#Events.tick.connect(_on_tick)
+func _ready() -> void:
+	_choose_cake()
+
+func _choose_cake():
+	wanted_cake = Types.Cakes.values().pick_random()
+	$Balloon.texture = Types.CakeTextures[wanted_cake]
+	
 func _physics_process(delta: float) -> void:	
 	_update_happiness(delta)
 	if should_move():
@@ -97,22 +103,27 @@ func exited_arena()->void:
 	on_screen_since = -1
 	call_deferred("queue_free")
 
-func feed(cake)->void:
-	
+func feed(cake)->void:	
 	state = Types.ChildState.EATING
 	_update_state()
-	Logger.debug("Child %s fed with %s" % [name, cake.name])
+	Logger.debug("Child %s fed with %s" % [name, cake])
 	await get_tree().create_timer(EATING_TIME).timeout 
 	check_reaction(cake)
 	
 func check_reaction(cake):
-	#TODO check cake type
-	Events.on_feed.emit(self, cake)
-	state = Types.ChildState.GOOD_REACTION
-	_update_state()
-	await get_tree().create_timer(REACTING_TIME).timeout 	
-	leave()
-
+	if cake == wanted_cake:
+		Events.on_feed.emit(self, cake)
+		state = Types.ChildState.GOOD_REACTION
+		_update_state()
+		await get_tree().create_timer(REACTING_TIME).timeout 	
+		leave()
+	else:
+		state = Types.ChildState.BAD_REACTION
+		_update_state()
+		await get_tree().create_timer(REACTING_TIME).timeout
+		state = get_state_from_happiness()
+		
+		
 func leave():
 	state = Types.ChildState.LEAVING
 	_update_state()

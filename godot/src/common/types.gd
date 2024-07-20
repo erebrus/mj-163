@@ -8,6 +8,7 @@ enum Cakes {
 	StrawberryCupcake
 }
 
+
 enum CakeTags {
 	Chocolate,
 	Strawberry,
@@ -15,6 +16,12 @@ enum CakeTags {
 	NonGluten,
 	Vegan,
 }
+const CakeTextures := [
+	preload("res://assets/gfx/chocolate_cupcake.png"),
+	preload("res://assets/gfx/cupcake.png"),
+	
+]
+	
 
 const ScoreTable := {
 	ChildState.CRYING : 50,

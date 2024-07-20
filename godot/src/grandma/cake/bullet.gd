@@ -24,5 +24,5 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("children"):
-		body.feed(self)
+		body.feed(type)
 		call_deferred("queue_free")
