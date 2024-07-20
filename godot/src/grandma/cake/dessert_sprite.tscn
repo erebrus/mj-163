@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d01baxvliu54e"]
+
+[ext_resource type="Script" path="res://src/grandma/cake/dessert_sprite.gd" id="1_ptuvx"]
+
+[node name="DessertSprite" type="Sprite2D"]
+script = ExtResource("1_ptuvx")

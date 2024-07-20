@@ -4,12 +4,13 @@ extends PathFollow2D
 @export var speed:= 500
 
 
-var cake_type:= Types.Cakes.StrawberryCupcake
+var dessert_type:= Types.DessertType.Cupcake
 var current_direction := Types.Direction.RIGHT
 
 
 @onready var grandma_background: Sprite2D = %GrandmaBackground
 @onready var grandma_foreground: Sprite2D = %GrandmaForeground
+@onready var dessert_sprite: DessertSprite = %DessertSprite
 @onready var barrel: CannonBarrel = %CannonBarrel
 
 
@@ -49,12 +50,12 @@ func _input(event: InputEvent) -> void:
 		barrel.point_at(mouse_position)
 	
 	if event.is_action_pressed("shoot"):
-		barrel.shoot(cake_type)
+		barrel.shoot(dessert_type)
 	
 
 func _change_ammo(direction: int) -> void:
-	cake_type = posmod(int(cake_type) + direction, Types.Cakes.size())
-	barrel.cake_type = cake_type
+	dessert_type = posmod(int(dessert_type) + direction, Types.DessertType.size())
+	dessert_sprite.dessert_type = dessert_type
 	
 
 func _face(direction: int) -> void:
@@ -63,6 +64,7 @@ func _face(direction: int) -> void:
 	grandma_foreground.flip_h = direction == Types.Direction.LEFT
 	barrel.flip_h = direction == Types.Direction.LEFT
 	barrel.position.x = -barrel.position.x
+	dessert_sprite.position.x = -dessert_sprite.position.x
 	
 
 func _move(direction: int, delta: float) -> void:

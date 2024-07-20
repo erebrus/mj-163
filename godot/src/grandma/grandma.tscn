@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://l0bs5d5chsgh"]
+[gd_scene load_steps=7 format=3 uid="uid://l0bs5d5chsgh"]
 
 [ext_resource type="Script" path="res://src/grandma/grandma.gd" id="1_8yr8d"]
 [ext_resource type="Texture2D" uid="uid://dhssdf6ldn8gu" path="res://assets/gfx/grandma/grandma-bg.png" id="2_feod5"]
 [ext_resource type="PackedScene" uid="uid://nob8fbq77y0a" path="res://src/grandma/cannon.tscn" id="3_4nk1i"]
 [ext_resource type="Texture2D" uid="uid://glj5vpbxurxj" path="res://assets/gfx/grandma/grandma-fg.png" id="4_l15ix"]
+[ext_resource type="PackedScene" uid="uid://d01baxvliu54e" path="res://src/grandma/cake/dessert_sprite.tscn" id="4_ungno"]
+[ext_resource type="Texture2D" uid="uid://8qdcffos5bve" path="res://assets/gfx/desserts/cheesecake.png" id="5_shcyn"]
 
 [node name="Grandma" type="PathFollow2D"]
 rotates = false
@@ -27,6 +29,12 @@ position = Vector2(450, -38)
 unique_name_in_owner = true
 position = Vector2(145, -66)
 rotation = 1.1973
+
+[node name="DessertSprite" parent="." instance=ExtResource("4_ungno")]
+unique_name_in_owner = true
+position = Vector2(-132, -148)
+texture = ExtResource("5_shcyn")
+dessert_type = null
 
 [node name="GrandmaForeground" type="Sprite2D" parent="."]
 unique_name_in_owner = true

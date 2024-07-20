@@ -1,5 +1,15 @@
 extends Node
 
+const DESSERT_TEXTURES = {
+	Types.DessertType.Cupcake: preload("res://assets/gfx/desserts/cupcake.png"),
+	Types.DessertType.Cake: preload("res://assets/gfx/desserts/cheesecake.png"),
+	Types.DessertType.Donut: preload("res://assets/gfx/desserts/donut.png"),
+}
+
+# TODO: replace whoever is using this with DessertSprite?
+var CakeTextures := DESSERT_TEXTURES.values()
+
+
 enum ChildState{CRYING, ABOUT_TO_CRY, UPSET, NORMAL, EATING, BAD_REACTION, GOOD_REACTION, LEAVING}
 enum Direction{LEFT=-1, RIGHT=1}
 
@@ -8,20 +18,12 @@ enum Cakes {
 	StrawberryCupcake
 }
 
-
-enum CakeTags {
-	Chocolate,
-	Strawberry,
-	Lemon,
-	NonGluten,
-	Vegan,
+enum DessertType {
+	Cupcake,
+	Cake,
+	Donut,
 }
-const CakeTextures := [
-	preload("res://assets/gfx/chocolate_cupcake.png"),
-	preload("res://assets/gfx/cupcake.png"),
-	
-]
-	
+
 
 const ScoreTable := {
 	ChildState.CRYING : 50,

@@ -1,15 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://chhl2p7pu8fpk"]
+[gd_scene load_steps=5 format=3 uid="uid://chhl2p7pu8fpk"]
 
 [ext_resource type="Script" path="res://src/grandma/cake/bullet.gd" id="1_2ya1w"]
+[ext_resource type="PackedScene" uid="uid://d01baxvliu54e" path="res://src/grandma/cake/dessert_sprite.tscn" id="2_0g3p3"]
+[ext_resource type="Texture2D" uid="uid://cvprullnurv32" path="res://assets/gfx/desserts/cupcake.png" id="3_tep0g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mpref"]
+radius = 46.8188
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 16
 collision_mask = 4
 script = ExtResource("1_2ya1w")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="DessertSprite" parent="." instance=ExtResource("2_0g3p3")]
+texture = ExtResource("3_tep0g")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mpref")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

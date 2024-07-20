@@ -1,10 +1,10 @@
 class_name CannonBarrel extends Node2D
 
 const GUIDE_LENGTH = 400
-const CAKES = {
-	Types.Cakes.StrawberryCupcake: preload("res://src/grandma/cake/types/strawberry_cake.tscn"),
-	Types.Cakes.ChocolateCupcake: preload("res://src/grandma/cake/types/chocolate_cake.tscn"),
-}
+const DEFAULT_CAKE = preload("res://src/grandma/cake/bullet.tscn")
+
+const CAKES = {}
+
 
 @export var targetting_assist:= true:
 	set(value):
@@ -75,13 +75,15 @@ func point_at(target: Vector2) -> void:
 	rotation = angle + PI / 2
 	
 
-func shoot(cake_type: Types.Cakes) -> void:
+func shoot(dessert_type: Types.DessertType) -> void:
 	Logger.info("Shooting at angle %.4fº" % rotation_degrees)
-	assert(CAKES.has(cake_type))
+	var BulletScene = DEFAULT_CAKE
+	if CAKES.has(dessert_type):
+		BulletScene = CAKES[dessert_type]
 	
-	var bullet = CAKES[cake_type].instantiate()
+	var bullet = BulletScene.instantiate()
 	bullet.global_position = bullet_spawn.global_position
 	get_tree().root.add_child(bullet)
 	
-	bullet.shoot(rotation)
+	bullet.shoot(dessert_type, rotation)
 	
