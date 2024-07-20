@@ -1,7 +1,7 @@
 extends Area2D
 class_name DetectionArea
 
-const SIZE := Vector2(960,250)
+const SIZE := Vector2(960,120)
 const MARGIN := 50
 var direction := Types.Direction.LEFT
 

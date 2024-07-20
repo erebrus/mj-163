@@ -35,9 +35,11 @@ position = Vector2(960, 540)
 shape = SubResource("RectangleShape2D_r5r0p")
 
 [node name="DessertTable" parent="." instance=ExtResource("3_hjtns")]
+z_index = 1
 position = Vector2(960, 902)
 
 [node name="GrandmaPath" type="Path2D" parent="."]
+z_index = 2
 curve = SubResource("Curve2D_vshdf")
 
 [node name="Grandma" parent="GrandmaPath" instance=ExtResource("3_o4o4u")]

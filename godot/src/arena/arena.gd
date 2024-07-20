@@ -3,8 +3,8 @@ extends Node2D
 const AreaScene:PackedScene = preload("res://src/arena/detection_area.tscn")
 const ChildScene:PackedScene = preload("res://src/child/child.tscn")
 
-@export var area_rows :=3
-@export var y_area_margin := 100.0
+@export var area_rows := 4
+@export var y_area_margin := 200.0
 
 @export var initial_spawn_rate := 5.0
 @export var time_to_double := 10.0
@@ -63,11 +63,17 @@ func get_best_area()-> DetectionArea:
 
 
 func _on_spawn_timer_timeout() -> void:
-	spawn_child()
-	var interval = initial_spawn_rate / pow(2,get_time_from_start() / time_to_double)
-	Logger.debug("next spawn in %d s" % [interval])
-	spawn_timer.wait_time = interval
-	spawn_timer.start()
+	if child_count < get_max_children():
+		spawn_child()	
+		var interval = initial_spawn_rate / pow(2,get_time_from_start() / time_to_double)
+		Logger.debug("next spawn in %d s" % [interval])
+		spawn_timer.wait_time = interval
+		spawn_timer.start()
+	else:
+		spawn_timer.wait_time = 1
+		spawn_timer.start()
+		
+		
 
 func _on_arena_area_body_entered(body: Node2D) -> void:
 	if body.has_method("entered_arena"):
@@ -85,3 +91,5 @@ func _on_feed(child:Child, cake):
 func _update_hud():
 	Logger.info("new score: %d" % [score])
 	
+func get_max_children()->int:
+	return 7

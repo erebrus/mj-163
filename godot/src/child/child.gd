@@ -9,8 +9,8 @@ const MAX_HAPPINESS_RATE :=15.0
 
 const MIN_DIRECTION_CHANGE_TIME = 20 * 1000
 const SPEED = 100.0
-const MIN_Y = 60.0
-const MAX_Y = 900.0
+const MIN_Y = 300.0
+const MAX_Y = 760.0
 
 var direction_since 
 var on_screen_since=-1
@@ -30,6 +30,7 @@ func _choose_cake():
 	
 func _physics_process(delta: float) -> void:	
 	_update_happiness(delta)
+	$Balloon.offset.x = 128 if velocity.x > 0 else -128
 	if should_move():
 		if not state == Types.ChildState.LEAVING:	
 			check_crazy_ivan()	
