@@ -1,13 +1,39 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3vcrbvu1nfgu"]
+[gd_scene load_steps=12 format=3 uid="uid://c3vcrbvu1nfgu"]
 
 [ext_resource type="Script" path="res://src/child/child.gd" id="1_l4c32"]
 [ext_resource type="Texture2D" uid="uid://bqxx8qa6g5fbo" path="res://assets/gfx/kids/body-types/clothes-1-skin-1.png" id="3_halj3"]
 [ext_resource type="Texture2D" uid="uid://ygkcleuqveus" path="res://assets/gfx/kids/faces/skin-3.1/cry.png" id="4_yrejj"]
 [ext_resource type="AnimationLibrary" uid="uid://c6lt5hj23useu" path="res://src/child/animations.tres" id="5_a5ow7"]
 [ext_resource type="PackedScene" uid="uid://cxmi6ni1phyla" path="res://src/child/thought_bubble.tscn" id="5_uodt6"]
+[ext_resource type="Texture2D" uid="uid://bx6tv2ykkdpyv" path="res://assets/gfx/particles/teardrop.png" id="6_6uo8t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ifiyd"]
 size = Vector2(80, 128)
+
+[sub_resource type="Curve" id="Curve_1wtrj"]
+_data = [Vector2(0.0165563, 0.985302), 0.0, 0.0, 0, 0, Vector2(0.768212, 0.970605), 0.0, 0.0, 0, 0, Vector2(0.993377, 0.00423956), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_no8sk"]
+curve = SubResource("Curve_1wtrj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0xrg8"]
+particle_flag_disable_z = true
+direction = Vector3(0.5, -1, 0)
+spread = 20.0
+initial_velocity_min = 60.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 98, 0)
+alpha_curve = SubResource("CurveTexture_no8sk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8omxd"]
+particle_flag_disable_z = true
+direction = Vector3(-0.5, -1, 0)
+spread = 20.0
+initial_velocity_min = 60.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 98, 0)
+alpha_curve = SubResource("CurveTexture_no8sk")
 
 [node name="Child" type="CharacterBody2D" groups=["children"]]
 collision_layer = 4
@@ -32,6 +58,20 @@ position = Vector2(0, -34)
 unique_name_in_owner = true
 position = Vector2(0, -80)
 texture = ExtResource("4_yrejj")
+
+[node name="RightCryParticles" type="GPUParticles2D" parent="Sprites/HeadPivot/Head"]
+position = Vector2(44, 1)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_0xrg8")
+texture = ExtResource("6_6uo8t")
+lifetime = 2.0
+
+[node name="LeftCryParticles" type="GPUParticles2D" parent="Sprites/HeadPivot/Head"]
+position = Vector2(-36, 1)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_8omxd")
+texture = ExtResource("6_6uo8t")
+lifetime = 1.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

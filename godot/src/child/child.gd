@@ -49,6 +49,8 @@ var cry_tween: Tween
 @onready var body_sprite: Sprite2D = %Body
 @onready var head_pivot: Node2D = $Sprites/HeadPivot
 
+@onready var right_cry_particles: GPUParticles2D = $Sprites/HeadPivot/Head/RightCryParticles
+@onready var left_cry_particles: GPUParticles2D = $Sprites/HeadPivot/Head/LeftCryParticles
 
 func _ready() -> void:
 	happiness= 100+randi_range(-20,10)
@@ -72,6 +74,10 @@ func _choose_cake():
 	
 func _physics_process(delta: float) -> void:	
 	_update_happiness(delta)
+	
+	right_cry_particles.emitting = state == Types.ChildState.CRYING
+	left_cry_particles.emitting = state == Types.ChildState.CRYING
+	
 	if velocity.x > 0:		
 		$ThoughtBubble.position.x = -64  
 		$ThoughtBubble.flip_h = true
@@ -234,6 +240,7 @@ func _cry() -> void:
 	cry_tween.tween_interval(randf_range(0, 0.5))
 	cry_tween.tween_callback(_cry)
 	
+
 
 func _stop_crying() -> void:
 	if cry_tween:
