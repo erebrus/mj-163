@@ -40,7 +40,8 @@ var clothes = Types.ChildClothes.values().pick_random()
 var direction_since 
 var on_screen_since=-1
 var happiness = 100
-var state := Types.ChildState.NORMAL
+var state := Types.ChildState.LEAVING:
+	set = _update_state
 
 var cry_tween: Tween
 var cry_pitch:= randf_range(0.8, 1)
@@ -64,7 +65,8 @@ var cry_pitch:= randf_range(0.8, 1)
 func _ready() -> void:
 	happiness= 100+randi_range(-20,10)
 	_choose_cake()
-	_update_state()
+	state = Types.ChildState.NORMAL
+	
 	var wt = MIN_DIRECTION_CHANGE_TIME + randf()*MIN_DIRECTION_CHANGE_TIME
 	
 	direction_timer.wait_time = wt
@@ -87,8 +89,11 @@ func _choose_cake():
 func _physics_process(delta: float) -> void:	
 	_update_happiness(delta)
 	
-	$ThoughtBubble.flip = velocity.x > 0
-		
+	if should_move():
+		$ThoughtBubble.flip = velocity.x > 0
+		head_sprite.flip_h = velocity.x > 0
+		body_sprite.flip_h = velocity.x > 0
+	
 	if should_move():
 		move_and_slide()
 		if global_position.y > MAX_Y and velocity.y > 0 or \
@@ -116,32 +121,50 @@ func _update_happiness(delta:float)->void:
 		var rate = clamp(INITIAL_HAPPINESS_RATE + (get_time_on_screen()/TIME_TO_HIGHER_RATE),1.0,MAX_HAPPINESS_RATE)*delta
 		#happiness = clamp(100 - get_time_on_screen()/1000*4, 0, 100)
 		happiness = clamp(happiness- rate, 0, 100)
-	_update_state()
-	
-func _update_state():
 	if not state in BUSY_STATES:
-		var new_state = get_state_from_happiness()
-		if new_state != state:
-			if new_state == Types.ChildState.CRYING:
-				_cry()
-			state = new_state
+		state = get_state_from_happiness()
 	
-	var is_walking = state in WALKING_STATES
+
+func _update_state(new_state: Types.ChildState) -> void:
+	if new_state == state:
+		return
 	
-	head_sprite.texture = Types.head_texture(state, skin, hair)
+	var was_walking = state in WALKING_STATES
+	var is_walking = new_state in WALKING_STATES
+	
+	# EXIT STATE
+	match state:
+		Types.ChildState.CRYING:
+			head_pivot.rotation = 0
+			head_sprite.hframes = 1
+			right_cry_particles.emitting = false
+			left_cry_particles.emitting = false
+			
+			if cry_tween != null:
+				cry_tween.kill()
+		Types.ChildState.EATING:
+			head_sprite.hframes = 1
+			head_sprite.frame = 0
+			animation_player.play("sit")
+	
+	if was_walking:
+		body_sprite.hframes = 1
+		body_sprite.frame = 0
+		animation_player.play("sit")
+	
+	head_sprite.texture = Types.head_texture(new_state, skin, hair)
 	body_sprite.texture = Types.body_texture(is_walking, skin, clothes)
 	
-	if state != Types.ChildState.CRYING:
-		head_sprite.hframes = 1
-		right_cry_particles.emitting = false
-		left_cry_particles.emitting = false
-		
-		if cry_tween != null:
-			cry_tween.kill()
+	# ENTER STATE
+	match new_state:
+		Types.ChildState.CRYING:
+			_cry()
+		Types.ChildState.EATING:
+			if !animation_player.is_playing() or animation_player.assigned_animation != "chew":
+				head_sprite.hframes = 2
+				animation_player.play("chew")
 	
 	if is_walking:
-		head_sprite.flip_h = velocity.x > 0
-		body_sprite.flip_h = velocity.x > 0
 		body_sprite.hframes = 3
 		var walk_speed = 1
 		if state == Types.ChildState.UPSET:
@@ -150,18 +173,9 @@ func _update_state():
 			walk_speed = 0.5
 			
 		animation_player.play("walk", -1, walk_speed)
-	else:
-		body_sprite.hframes = 1
-		animation_player.play("sit")
-		if state != Types.ChildState.CRYING:
-			head_pivot.rotation = 0
-	
-	if state == Types.ChildState.EATING:
-		if !animation_player.is_playing() or animation_player.assigned_animation != "chew":
-			head_sprite.hframes = 2
-			animation_player.play("chew")
-	else:
-		head_sprite.hframes = 1
+		_walk()
+		
+	state = new_state
 	
 
 func change_direction():	
@@ -190,19 +204,16 @@ func feed(cake, flavour)->void:
 		Events.on_feed.emit(self)
 		state = Types.ChildState.EATING
 		eating_sfx.play()
-		_update_state()
 		Logger.debug("Child %s fed with %s" % [name, cake])
 		await get_tree().create_timer(EATING_TIME).timeout 
 		state = Types.ChildState.GOOD_REACTION
 		happy_sfx.play()
-		_update_state()
 		await get_tree().create_timer(REACTING_TIME).timeout 	
 		leave()
 	else:
 		state = Types.ChildState.BAD_REACTION
 		Events.on_bad_feed.emit(self)
 		sad_sfx.play()
-		_update_state()
 		await get_tree().create_timer(REACTING_TIME).timeout		
 		state = get_state_from_happiness()
 		_show_baloon()
@@ -216,7 +227,6 @@ func _show_baloon():
 
 func leave():
 	state = Types.ChildState.LEAVING
-	_update_state()
 	if global_position.x > 1920/2.0 and velocity.x < 0 or \
 		global_position.x < 1920/2.0 and velocity.x > 0:
 			velocity.x *=-1
@@ -283,3 +293,12 @@ func _cry() -> void:
 	cry_tween.tween_callback(_cry)
 	
 	
+
+func _walk() -> void:
+	if walk_sfx.playing:
+		return
+	
+	walk_sfx.play.call_deferred()
+	await walk_sfx.finished
+	if should_move():
+		_walk()
