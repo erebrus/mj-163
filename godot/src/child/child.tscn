@@ -1,8 +1,8 @@
 [gd_scene load_steps=30 format=3 uid="uid://c3vcrbvu1nfgu"]
 
 [ext_resource type="Script" path="res://src/child/child.gd" id="1_l4c32"]
-[ext_resource type="Texture2D" uid="uid://bqxx8qa6g5fbo" path="res://assets/gfx/kids/body-types/clothes-1-skin-1.png" id="3_halj3"]
-[ext_resource type="Texture2D" uid="uid://ygkcleuqveus" path="res://assets/gfx/kids/faces/skin-3.1/cry.png" id="4_yrejj"]
+[ext_resource type="Texture2D" uid="uid://bhvl3lml3r7qt" path="res://assets/gfx/kids/body-types/clothes-1-skin-1-walk.png" id="2_7cjrn"]
+[ext_resource type="Texture2D" uid="uid://boom1j7j1wuxp" path="res://assets/gfx/kids/faces/skin-1.1/walk-happy.png" id="3_k1pxn"]
 [ext_resource type="AnimationLibrary" uid="uid://c6lt5hj23useu" path="res://src/child/animations.tres" id="5_a5ow7"]
 [ext_resource type="PackedScene" uid="uid://cxmi6ni1phyla" path="res://src/child/thought_bubble.tscn" id="5_uodt6"]
 [ext_resource type="Texture2D" uid="uid://bx6tv2ykkdpyv" path="res://assets/gfx/particles/teardrop.png" id="6_6uo8t"]
@@ -93,7 +93,8 @@ position = Vector2(0, -73)
 [node name="Body" type="Sprite2D" parent="Sprites"]
 unique_name_in_owner = true
 position = Vector2(0, 30.5)
-texture = ExtResource("3_halj3")
+texture = ExtResource("2_7cjrn")
+hframes = 3
 
 [node name="HeadPivot" type="Node2D" parent="Sprites"]
 position = Vector2(0, -34)
@@ -101,7 +102,7 @@ position = Vector2(0, -34)
 [node name="Head" type="Sprite2D" parent="Sprites/HeadPivot"]
 unique_name_in_owner = true
 position = Vector2(0, -80)
-texture = ExtResource("4_yrejj")
+texture = ExtResource("3_k1pxn")
 
 [node name="RightCryParticles" type="GPUParticles2D" parent="Sprites/HeadPivot/Head"]
 position = Vector2(44, 1)

@@ -134,7 +134,7 @@ func _update_state():
 	if is_walking:
 		head_sprite.flip_h = velocity.x > 0
 		body_sprite.flip_h = velocity.x > 0
-		body_sprite.hframes = 2
+		body_sprite.hframes = 3
 		var walk_speed = 1
 		if state == Types.ChildState.UPSET:
 			walk_speed = 0.75
