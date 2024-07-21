@@ -73,7 +73,7 @@ func update_granny_text(player):
 		text += " "
 	
 	if not has_name:
-		text += "\nGo on, tell us your name"
+		text += "\nGo on, tell us your name."
 	
 	%GrannyLabel.text = text
 	
@@ -85,3 +85,7 @@ func _on_retry_button_pressed():
 
 func _on_line_edit_text_submitted(new_text):
 	submit_name(new_text)
+
+
+func _on_submit_button_pressed():
+	submit_name(%PlayerName.text)

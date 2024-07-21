@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dcdmaujn2wpqo" path="res://src/ui/ScoreUI.tscn" id="5_0bdql"]
 [ext_resource type="PackedScene" uid="uid://dkn0a4edoyyix" path="res://src/gui/reload_label.tscn" id="5_ckr45"]
 [ext_resource type="PackedScene" uid="uid://j6l3pgl2h0c6" path="res://src/ui/HappinessMeter.tscn" id="6_aw8j4"]
-[ext_resource type="PackedScene" path="res://src/gui/leader_board.tscn" id="8_5f0e2"]
+[ext_resource type="PackedScene" uid="uid://x0vso5387cf5" path="res://src/gui/leader_board.tscn" id="8_5f0e2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5r0p"]
 size = Vector2(1920, 1080)
