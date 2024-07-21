@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmkxwyrd01d5c"]
+[gd_scene load_steps=11 format=3 uid="uid://cmkxwyrd01d5c"]
 
 [ext_resource type="Script" path="res://src/arena/arena.gd" id="1_1uucj"]
 [ext_resource type="Texture2D" uid="uid://ctdu624vk3jt" path="res://assets/gfx/background/background-art.png" id="2_21irk"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dcdmaujn2wpqo" path="res://src/ui/ScoreUI.tscn" id="5_0bdql"]
 [ext_resource type="PackedScene" uid="uid://dkn0a4edoyyix" path="res://src/gui/reload_label.tscn" id="5_ckr45"]
 [ext_resource type="PackedScene" uid="uid://j6l3pgl2h0c6" path="res://src/ui/HappinessMeter.tscn" id="6_aw8j4"]
+[ext_resource type="PackedScene" uid="uid://x0vso5387cf5" path="res://src/gui/leader_board.tscn" id="8_5f0e2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5r0p"]
 size = Vector2(1920, 1080)
@@ -69,6 +70,9 @@ offset_left = -386.0
 offset_right = 0.0
 offset_bottom = 102.0
 grow_horizontal = 0
+
+[node name="LeaderBoard" parent="HUD" instance=ExtResource("8_5f0e2")]
+unique_name_in_owner = true
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

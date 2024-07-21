@@ -28,6 +28,8 @@ var start_time:int=0
 var score=0
 var happiness:=100.0
 var player_name="test_player"
+var gameover:= false
+
 
 func _ready() -> void:
 	_init_areas()
@@ -47,7 +49,9 @@ func _ready() -> void:
 func _input(event):
 	if event.is_action_pressed("restart"):
 		get_tree().reload_current_scene()
-	
+	if event.is_action_pressed("gameover"):
+			happiness = 0
+			check_game_over()
 
 func get_time_from_start()->int:
 	return (Time.get_ticks_msec()-start_time) / 1000.0
@@ -137,10 +141,17 @@ func update_happiness():
 	check_game_over()
 	
 func check_game_over():
-	if happiness == 0:
-		Logger.info("Game over!")
-		get_tree().quit()
-		
+	if happiness == 0 and not gameover:
+		do_gameover()
+	
+
+func do_gameover():
+	gameover = true
+	
+	Logger.info("Game over!")
+	%LeaderBoard.submit_score(score)
+	
+
 func _on_tick_timer_timeout() -> void:
 	update_happiness()
 	Events.tick.emit()
