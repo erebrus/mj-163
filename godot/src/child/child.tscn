@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c3vcrbvu1nfgu"]
+[gd_scene load_steps=30 format=3 uid="uid://c3vcrbvu1nfgu"]
 
 [ext_resource type="Script" path="res://src/child/child.gd" id="1_l4c32"]
 [ext_resource type="Texture2D" uid="uid://bqxx8qa6g5fbo" path="res://assets/gfx/kids/body-types/clothes-1-skin-1.png" id="2_0v0rt"]
@@ -78,6 +78,9 @@ stream_1/stream = ExtResource("15_lyrq8")
 stream_2/stream = ExtResource("16_gp23c")
 stream_3/stream = ExtResource("17_1l7sy")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0uqdk"]
+radius = 179.0
+
 [node name="Child" type="CharacterBody2D" groups=["children"]]
 collision_layer = 4
 script = ExtResource("1_l4c32")
@@ -155,5 +158,13 @@ bus = &"Sound"
 
 [node name="cry_sfx" type="AudioStreamPlayer2D" parent="Sfx"]
 bus = &"Sound"
+
+[node name="KidsDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KidsDetection"]
+position = Vector2(-5, -122)
+shape = SubResource("CircleShape2D_0uqdk")
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

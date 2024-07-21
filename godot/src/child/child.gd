@@ -13,7 +13,7 @@ const TIME_TO_HIGHER_RATE :=30.0
 const MAX_HAPPINESS_RATE :=15.0
 
 const MIN_DIRECTION_CHANGE_TIME = 6 
-const MAX_DIRECTION_CHANGE_TIME = 20 
+const MAX_DIRECTION_CHANGE_TIME = 15 
 const SPEED = 100.0
 const MIN_Y = 300.0
 const MAX_Y = 760.0
@@ -124,11 +124,21 @@ func _update_happiness(delta:float)->void:
 	if not state in BUSY_STATES:
 		state = get_state_from_happiness()
 	
+func no_space_to_cry()->bool:
+	for c in $KidsDetection.get_overlapping_bodies():
+		if c != self and c.state == Types.ChildState.CRYING:
+			return true
+	return false
 
 func _update_state(new_state: Types.ChildState) -> void:
 	if new_state == state:
 		return
 	
+	if new_state == Types.ChildState.CRYING and no_space_to_cry():
+		if (velocity.x>0 and global_position.x>1920-300) or\
+			(velocity.x<0 and global_position.x<300):#TODO hardcoded screen width		 
+				velocity.x *=-1
+		return
 	var was_walking = state in WALKING_STATES
 	var is_walking = new_state in WALKING_STATES
 	
@@ -180,7 +190,11 @@ func _update_state(new_state: Types.ChildState) -> void:
 
 func change_direction():	
 	velocity.y = randi_range(-30,30)/100.0*SPEED
-	if randf()>.3:
+	if (velocity.x>0 and global_position.x>1920-300) or\
+		(velocity.x<0 and global_position.x<300):#TODO hardcoded screen width		 
+			if randf()>.2:
+				velocity.x *= -1
+	elif randf()>.7:
 		velocity.x *= -1
 
 func set_initial_velocity ( direction:Types.Direction ) -> void:
