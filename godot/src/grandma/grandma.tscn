@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://l0bs5d5chsgh"]
+[gd_scene load_steps=9 format=3 uid="uid://l0bs5d5chsgh"]
 
 [ext_resource type="Script" path="res://src/grandma/grandma.gd" id="1_8yr8d"]
 [ext_resource type="Texture2D" uid="uid://dhssdf6ldn8gu" path="res://assets/gfx/grandma/grandma-bg.png" id="2_feod5"]
 [ext_resource type="PackedScene" uid="uid://nob8fbq77y0a" path="res://src/grandma/cannon.tscn" id="3_4nk1i"]
 [ext_resource type="Texture2D" uid="uid://glj5vpbxurxj" path="res://assets/gfx/grandma/grandma-fg.png" id="4_l15ix"]
 [ext_resource type="PackedScene" uid="uid://bo160ji4aulmn" path="res://src/grandma/cake/dessert_sprite.tscn" id="4_ungno"]
+[ext_resource type="PackedScene" uid="uid://xi421nvx1edp" path="res://src/grandma/SpeechBubble.tscn" id="6_tanuc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qx6y6"]
 line_spacing = 0.0
@@ -71,3 +72,6 @@ position = Vector2(0, -227)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StandDetector"]
 shape = SubResource("RectangleShape2D_r0ipl")
+
+[node name="SpeechBubble" parent="." instance=ExtResource("6_tanuc")]
+position = Vector2(272, -304)

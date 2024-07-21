@@ -92,7 +92,7 @@ func _on_arena_area_body_exited(body: Node2D) -> void:
 	if body.has_method("exited_arena"):
 		body.exited_arena()
 
-func _on_feed(child:Child, cake):
+func _on_feed(child:Child):
 	var l = ScoreScene.instantiate()
 	l.global_position = child.global_position-Vector2(-64, 300)
 	var score_delta = Types.ScoreTable[child.get_state_from_happiness()]

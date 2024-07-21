@@ -14,11 +14,42 @@ const PATTERN_TEXTURES =  [
 	preload("res://assets/gfx/thought-bubble/strawberry.png")
 ]
 
-
+const BARKS = {
+	BarkType.SHOOT: [
+		"Here comes a yummy treat!",
+		"Cake incoming, dear!",
+		"Sweetness on the way!",
+		"Get ready for a delightful surprise!",
+		"Dessert delivery, my darling!"
+		],
+	BarkType.GOOD:[
+		"Just the way you like it!",
+		"Perfect choice, isn't it?",
+		"Happy tummies make happy kiddos!",
+		"Spot on, enjoy your treat!",
+		"I knew you'd love it!"
+	],
+	BarkType.BAD:[
+		"Oh dear, let's try that again!",
+		"Oops, not quite right. Sorry, sweetie!",
+		"Hang on, I'll get it right next time!",
+		"Uh-oh, not your favorite? My mistake!",
+		"Oopsie, wrong flavor! Let’s fix that."	
+	],
+	BarkType.CRYING:[
+		"Oh no, don't cry! Cake is coming!",
+		"Hold on, sweetie, I’ve got a treat for you!",
+		"Tears won't do, let's get you some cake!",
+		"Don't be sad, my dear, your dessert is here!",
+		"Dry those eyes, sweetie, Grandma's got your cake!"
+	]
+		
+}
 
 # TODO: replace whoever is using this with DessertSprite?
 var CakeTextures := DESSERT_TEXTURES.values()
 
+enum BarkType {SHOOT, GOOD, BAD, CRYING}
 enum ChildSkin {DARK, MEDIUM, LIGHT}
 enum ChildHair {BROWN_PIGTAILS, RED_PIGTAILS, BROWN_SHORT, RED_SHORT}
 enum ChildClothes {GREEN_OVERALLS, CYAN_OVERALLS, BLUE_OVERALLS, CYAN_TSHIRT, PINK_TSHIRT, GREEN_TSHIRT}

@@ -163,7 +163,7 @@ func exited_arena()->void:
 func feed(cake, flavour)->void:	
 	_hide_baloon()
 	if $ThoughtBubble.pattern_matches(cake, flavour):
-		Events.on_feed.emit(self, cake)
+		Events.on_feed.emit(self)
 		state = Types.ChildState.EATING
 		_update_state()
 		Logger.debug("Child %s fed with %s" % [name, cake])
@@ -174,6 +174,7 @@ func feed(cake, flavour)->void:
 		leave()
 	else:
 		state = Types.ChildState.BAD_REACTION
+		Events.on_bad_feed.emit(self)
 		_update_state()
 		await get_tree().create_timer(REACTING_TIME).timeout		
 		state = get_state_from_happiness()

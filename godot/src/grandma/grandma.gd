@@ -36,6 +36,8 @@ func _ready() -> void:
 	barrel.max_angle = max_angle
 	barrel.min_angle = min_angle
 	current_ammo = 0
+	Events.on_feed.connect(func(x): bark(Types.BarkType.GOOD))
+	Events.on_bad_feed.connect(func(x): bark(Types.BarkType.BAD))
 	
 
 func _physics_process(delta: float) -> void:
@@ -77,6 +79,9 @@ func _has_ammo() -> bool:
 
 func _face(direction: int) -> void:
 	current_direction = direction
+	$SpeechBubble.flip_h = direction == Types.Direction.LEFT
+	if sign($SpeechBubble.position.x) != sign(direction):
+		$SpeechBubble.position.x*=-1
 	grandma_background.flip_h = direction == Types.Direction.LEFT
 	grandma_foreground.flip_h = direction == Types.Direction.LEFT
 	barrel.flip_h = direction == Types.Direction.LEFT
@@ -93,3 +98,6 @@ func _move(direction: int, delta: float) -> void:
 func _stop() -> void:
 	# TODO: idle animation?
 	pass
+
+func bark(type:Types.BarkType) -> void:
+	$SpeechBubble.show_text(Types.BARKS[type].pick_random())
