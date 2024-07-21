@@ -18,8 +18,8 @@ const ScoreScene:=preload("res://src/child/ScoreLabel.tscn")
 @export var area_rows := 4
 @export var y_area_margin := 200.0
 
-@export var initial_spawn_rate := 8.0
-@export var time_to_double := 100.0
+@export var initial_spawn_rate := 6.0
+@export var time_to_double := 200.0
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var timer: Timer = $Timer
 
@@ -127,7 +127,7 @@ func _update_hud():
 	Logger.info("new score: %d" % [score])
 	
 func get_max_children()->int:
-	return 15
+	return 10
 
 func update_happiness():
 	var happiness_delta:float = 0.0
