@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 const AreaScene:PackedScene = preload("res://src/arena/detection_area.tscn")
 const ChildScene:PackedScene = preload("res://src/child/child.tscn")

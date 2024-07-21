@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmkxwyrd01d5c"]
+[gd_scene load_steps=8 format=3 uid="uid://cmkxwyrd01d5c"]
 
 [ext_resource type="Script" path="res://src/arena/arena.gd" id="1_1uucj"]
 [ext_resource type="Texture2D" uid="uid://ctdu624vk3jt" path="res://assets/gfx/background/background-art.png" id="2_21irk"]
 [ext_resource type="PackedScene" uid="uid://bysvywpn0uoie" path="res://src/dessert_table/dessert_table.tscn" id="3_hjtns"]
 [ext_resource type="PackedScene" uid="uid://l0bs5d5chsgh" path="res://src/grandma/grandma.tscn" id="3_o4o4u"]
+[ext_resource type="PackedScene" uid="uid://dkn0a4edoyyix" path="res://src/gui/reload_label.tscn" id="5_ckr45"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5r0p"]
 size = Vector2(1920, 1080)
@@ -14,7 +15,7 @@ _data = {
 }
 point_count = 2
 
-[node name="Arena" type="Node2D"]
+[node name="Arena" type="Node"]
 script = ExtResource("1_1uucj")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -47,6 +48,22 @@ curve = SubResource("Curve2D_vshdf")
 
 [node name="Grandma" parent="GrandmaPath" instance=ExtResource("3_o4o4u")]
 position = Vector2(200, 1000)
+
+[node name="GUI" type="Control" parent="."]
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="ReloadLabel" parent="GUI" instance=ExtResource("5_ckr45")]
+layout_mode = 1
+offset_top = -63.0
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="body_entered" from="ArenaArea" to="." method="_on_arena_area_body_entered"]
