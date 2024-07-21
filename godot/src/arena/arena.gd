@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 const HAPPINESS_MAP={
 	Types.ChildState.CRYING:-1.0,

@@ -65,6 +65,8 @@ func _input(event: InputEvent) -> void:
 		if _has_ammo():
 			barrel.shoot(dessert_type, flavour)
 			current_ammo -= 1
+			if not _has_ammo():
+				Events.need_reload.emit()
 		else:
 			barrel.empty_shot()
 		
@@ -74,6 +76,7 @@ func reload(_dessert_type: Types.DessertType, _flavour: Types.Flavour) -> void:
 	dessert_type = _dessert_type
 	flavour = _flavour
 	current_ammo = 5
+	Events.reloaded.emit()
 	
 
 func _has_ammo() -> bool:

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cmkxwyrd01d5c"]
+[gd_scene load_steps=10 format=3 uid="uid://cmkxwyrd01d5c"]
 
 [ext_resource type="Script" path="res://src/arena/arena.gd" id="1_1uucj"]
 [ext_resource type="Texture2D" uid="uid://ctdu624vk3jt" path="res://assets/gfx/background/background-art.png" id="2_21irk"]
 [ext_resource type="PackedScene" uid="uid://bysvywpn0uoie" path="res://src/dessert_table/dessert_table.tscn" id="3_hjtns"]
 [ext_resource type="PackedScene" uid="uid://l0bs5d5chsgh" path="res://src/grandma/grandma.tscn" id="3_o4o4u"]
 [ext_resource type="PackedScene" uid="uid://dcdmaujn2wpqo" path="res://src/ui/ScoreUI.tscn" id="5_0bdql"]
+[ext_resource type="PackedScene" uid="uid://dkn0a4edoyyix" path="res://src/gui/reload_label.tscn" id="5_ckr45"]
 [ext_resource type="PackedScene" uid="uid://j6l3pgl2h0c6" path="res://src/ui/HappinessMeter.tscn" id="6_aw8j4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5r0p"]
@@ -16,7 +17,7 @@ _data = {
 }
 point_count = 2
 
-[node name="Arena" type="Node2D"]
+[node name="Arena" type="Node"]
 script = ExtResource("1_1uucj")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -54,6 +55,9 @@ curve = SubResource("Curve2D_vshdf")
 position = Vector2(200, 1000)
 
 [node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ReloadLabel" parent="HUD" instance=ExtResource("5_ckr45")]
+offset_top = -63.0
 
 [node name="ScoreUI" parent="HUD" instance=ExtResource("5_0bdql")]
 
