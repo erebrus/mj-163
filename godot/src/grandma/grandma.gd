@@ -3,6 +3,7 @@ class_name Grandma extends PathFollow2D
 
 @export var speed:= 500
 
+var moving :=false
 
 var dessert_type:= Types.DessertType.Cupcake:
 	set(value):
@@ -42,12 +43,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("left"):
-		_move(Types.Direction.LEFT, delta)
+		_move(Types.Direction.LEFT, delta)		
 	elif Input.is_action_pressed("right"):
 		_move(Types.Direction.RIGHT, delta)
 	else:
 		_stop()
-	
+	if moving and not $walk_sfx.playing:
+		$walk_sfx.play()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -63,11 +65,11 @@ func _input(event: InputEvent) -> void:
 			barrel.shoot(dessert_type, flavour)
 			current_ammo -= 1
 		else:
-			# TODO: no ammo noise / animation
-			pass
+			barrel.empty_shot()
 		
 
 func reload(_dessert_type: Types.DessertType, _flavour: Types.Flavour) -> void:
+	$reload_sfx.play()
 	dessert_type = _dessert_type
 	flavour = _flavour
 	current_ammo = 5
@@ -93,11 +95,12 @@ func _face(direction: int) -> void:
 func _move(direction: int, delta: float) -> void:
 	# TODO: moving animation?
 	progress += direction * speed * delta
+	moving = true
 	
 
 func _stop() -> void:
 	# TODO: idle animation?
-	pass
+	moving = false
 
 func bark(type:Types.BarkType) -> void:
 	$SpeechBubble.show_text(Types.BARKS[type].pick_random())

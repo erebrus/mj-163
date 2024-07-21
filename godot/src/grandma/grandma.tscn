@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://l0bs5d5chsgh"]
+[gd_scene load_steps=18 format=3 uid="uid://l0bs5d5chsgh"]
 
 [ext_resource type="Script" path="res://src/grandma/grandma.gd" id="1_8yr8d"]
 [ext_resource type="Texture2D" uid="uid://dhssdf6ldn8gu" path="res://assets/gfx/grandma/grandma-bg.png" id="2_feod5"]
@@ -6,6 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://glj5vpbxurxj" path="res://assets/gfx/grandma/grandma-fg.png" id="4_l15ix"]
 [ext_resource type="PackedScene" uid="uid://bo160ji4aulmn" path="res://src/grandma/cake/dessert_sprite.tscn" id="4_ungno"]
 [ext_resource type="PackedScene" uid="uid://xi421nvx1edp" path="res://src/grandma/SpeechBubble.tscn" id="6_tanuc"]
+[ext_resource type="AudioStream" uid="uid://flicmrpvks0y" path="res://assets/sfx/Changing_Ammo_1.wav" id="7_nhuoc"]
+[ext_resource type="AudioStream" uid="uid://c5pcpxpmi3wap" path="res://assets/sfx/Changing_Ammo_2.wav" id="8_2lvwb"]
+[ext_resource type="AudioStream" uid="uid://tcf3p6y6ttts" path="res://assets/sfx/Changing_Ammo_3.wav" id="9_m2465"]
+[ext_resource type="AudioStream" uid="uid://5p2oykohuu57" path="res://assets/sfx/Grandma_Footstep_1.wav" id="10_l2id5"]
+[ext_resource type="AudioStream" uid="uid://cymfrgvnxmknb" path="res://assets/sfx/Grandma_Footstep_2.wav" id="11_dkyjs"]
+[ext_resource type="AudioStream" uid="uid://cl1gfge70i2ej" path="res://assets/sfx/Grandma_Footstep_3.wav" id="12_eg0bq"]
+[ext_resource type="AudioStream" uid="uid://b3f4xixhaf5sj" path="res://assets/sfx/Canon_adjust_loop.wav" id="13_tjhnb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qx6y6"]
 line_spacing = 0.0
@@ -13,6 +20,18 @@ font_size = 30
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0ipl"]
 size = Vector2(251.5, 163)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_a7hwe"]
+streams_count = 3
+stream_0/stream = ExtResource("7_nhuoc")
+stream_1/stream = ExtResource("8_2lvwb")
+stream_2/stream = ExtResource("9_m2465")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u7f4h"]
+streams_count = 3
+stream_0/stream = ExtResource("10_l2id5")
+stream_1/stream = ExtResource("11_dkyjs")
+stream_2/stream = ExtResource("12_eg0bq")
 
 [node name="Grandma" type="PathFollow2D"]
 rotates = false
@@ -75,3 +94,15 @@ shape = SubResource("RectangleShape2D_r0ipl")
 
 [node name="SpeechBubble" parent="." instance=ExtResource("6_tanuc")]
 position = Vector2(272, -304)
+
+[node name="reload_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_a7hwe")
+bus = &"Sound"
+
+[node name="walk_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_u7f4h")
+bus = &"Sound"
+
+[node name="cannon_rotate_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_tjhnb")
+bus = &"Sound"

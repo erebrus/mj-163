@@ -52,6 +52,13 @@ var cry_tween: Tween
 @onready var right_cry_particles: GPUParticles2D = $Sprites/HeadPivot/Head/RightCryParticles
 @onready var left_cry_particles: GPUParticles2D = $Sprites/HeadPivot/Head/LeftCryParticles
 
+@onready var eating_sfx: AudioStreamPlayer2D = $Sfx/eating_sfx
+@onready var happy_sfx: AudioStreamPlayer2D = $Sfx/happy_sfx
+@onready var sad_sfx: AudioStreamPlayer2D = $Sfx/sad_sfx
+@onready var walk_sfx: AudioStreamPlayer2D = $Sfx/walk_sfx
+@onready var cry_sfx: AudioStreamPlayer2D = $Sfx/cry_sfx
+
+
 func _ready() -> void:
 	happiness= 100+randi_range(-20,10)
 	_choose_cake()
@@ -60,11 +67,11 @@ func _ready() -> void:
 	
 	direction_timer.wait_time = wt
 	direction_timer.start()
-	
-	HyperLog.log(self).text("velocity>round")
-	HyperLog.log(self).text("position>round")
-	HyperLog.log(self).text("state")
-	HyperLog.log(self).size = Vector2(100,100)
+	#
+	#HyperLog.log(self).text("velocity>round")
+	#HyperLog.log(self).text("position>round")
+	#HyperLog.log(self).text("state")
+	#HyperLog.log(self).size = Vector2(100,100)
 	
 	
 
@@ -171,16 +178,19 @@ func feed(cake, flavour)->void:
 	if $ThoughtBubble.pattern_matches(cake, flavour):
 		Events.on_feed.emit(self)
 		state = Types.ChildState.EATING
+		eating_sfx.play()
 		_update_state()
 		Logger.debug("Child %s fed with %s" % [name, cake])
 		await get_tree().create_timer(EATING_TIME).timeout 
 		state = Types.ChildState.GOOD_REACTION
+		happy_sfx.play()
 		_update_state()
 		await get_tree().create_timer(REACTING_TIME).timeout 	
 		leave()
 	else:
 		state = Types.ChildState.BAD_REACTION
 		Events.on_bad_feed.emit(self)
+		sad_sfx.play()
 		_update_state()
 		await get_tree().create_timer(REACTING_TIME).timeout		
 		state = get_state_from_happiness()
@@ -228,7 +238,7 @@ func _cry() -> void:
 	if cry_tween:
 		cry_tween.kill()
 	cry_tween = create_tween()
-	
+	cry_sfx.play() #TODO repeat? loop?
 	var angle = randf_range(25, 50)
 	if randi() % 2 == 1:
 		angle = -angle

@@ -84,6 +84,9 @@ func shoot(dessert_type: Types.DessertType, flavour: Types.Flavour) -> void:
 	var bullet = BulletScene.instantiate()
 	bullet.global_position = bullet_spawn.global_position
 	get_tree().root.add_child(bullet)
-	
+	$fire_sfx.play()
 	bullet.shoot(dessert_type, flavour, rotation)
+	
+func empty_shot():
+	$blank_fire_sfx.play()
 	

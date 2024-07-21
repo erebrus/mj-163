@@ -1,7 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://nob8fbq77y0a"]
+[gd_scene load_steps=10 format=3 uid="uid://nob8fbq77y0a"]
 
 [ext_resource type="Script" path="res://src/grandma/cannon.gd" id="1_p5dcj"]
 [ext_resource type="Texture2D" uid="uid://dtudm14h1qjpe" path="res://assets/gfx/grandma/cannon.png" id="2_weijh"]
+[ext_resource type="AudioStream" uid="uid://c6rcnarggu3rl" path="res://assets/sfx/Fire_canon_1.wav" id="3_mw8gk"]
+[ext_resource type="AudioStream" uid="uid://djok6lmkwkvcg" path="res://assets/sfx/Fire_canon_2.wav" id="4_eqxtv"]
+[ext_resource type="AudioStream" uid="uid://lbbc1qaeu16b" path="res://assets/sfx/Fire_canon_3.wav" id="5_v42xk"]
+[ext_resource type="AudioStream" uid="uid://b7ddgafs4lx3l" path="res://assets/sfx/Fire_blank_1.wav" id="6_2u1dh"]
+[ext_resource type="AudioStream" uid="uid://dtslo07ehp7ie" path="res://assets/sfx/Fire_blank_2.wav" id="7_88eax"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_yonut"]
+streams_count = 3
+stream_0/stream = ExtResource("3_mw8gk")
+stream_1/stream = ExtResource("4_eqxtv")
+stream_2/stream = ExtResource("5_v42xk")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tq51h"]
+streams_count = 2
+stream_0/stream = ExtResource("6_2u1dh")
+stream_1/stream = ExtResource("7_88eax")
 
 [node name="CannonBarrel" type="Node2D"]
 script = ExtResource("1_p5dcj")
@@ -18,3 +34,11 @@ texture = ExtResource("2_weijh")
 
 [node name="BulletSpawn" type="Marker2D" parent="."]
 position = Vector2(0, -225)
+
+[node name="fire_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_yonut")
+bus = &"Sound"
+
+[node name="blank_fire_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_tq51h")
+bus = &"Sound"

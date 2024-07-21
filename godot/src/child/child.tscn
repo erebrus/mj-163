@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c3vcrbvu1nfgu"]
+[gd_scene load_steps=29 format=3 uid="uid://c3vcrbvu1nfgu"]
 
 [ext_resource type="Script" path="res://src/child/child.gd" id="1_l4c32"]
 [ext_resource type="Texture2D" uid="uid://bqxx8qa6g5fbo" path="res://assets/gfx/kids/body-types/clothes-1-skin-1.png" id="3_halj3"]
@@ -6,6 +6,17 @@
 [ext_resource type="AnimationLibrary" uid="uid://c6lt5hj23useu" path="res://src/child/animations.tres" id="5_a5ow7"]
 [ext_resource type="PackedScene" uid="uid://cxmi6ni1phyla" path="res://src/child/thought_bubble.tscn" id="5_uodt6"]
 [ext_resource type="Texture2D" uid="uid://bx6tv2ykkdpyv" path="res://assets/gfx/particles/teardrop.png" id="6_6uo8t"]
+[ext_resource type="AudioStream" uid="uid://detkl00llkoe3" path="res://assets/sfx/Children_eating_1.wav" id="7_lnwr5"]
+[ext_resource type="AudioStream" uid="uid://s8oronid2tso" path="res://assets/sfx/Children_eating_2.wav" id="8_wvg84"]
+[ext_resource type="AudioStream" uid="uid://ckhtk8b466460" path="res://assets/sfx/Children_eating_3.wav" id="9_irqee"]
+[ext_resource type="AudioStream" uid="uid://bhrbsgmels34" path="res://assets/sfx/Children_Happy_1.wav" id="10_cd35e"]
+[ext_resource type="AudioStream" uid="uid://dc2nc6hb8w1nn" path="res://assets/sfx/Children_Happy_2.wav" id="11_kqwat"]
+[ext_resource type="AudioStream" uid="uid://c480aj5c2m0qy" path="res://assets/sfx/Children_Sad_1.wav" id="12_c8c1r"]
+[ext_resource type="AudioStream" uid="uid://m1q8umkbct4a" path="res://assets/sfx/Children_Sad_2.wav" id="13_68it1"]
+[ext_resource type="AudioStream" uid="uid://oxmg4101iq7k" path="res://assets/sfx/Children_foostep_1.wav" id="14_lev1x"]
+[ext_resource type="AudioStream" uid="uid://dtel4etwlqo84" path="res://assets/sfx/Children_foostep_2.wav" id="15_lyrq8"]
+[ext_resource type="AudioStream" uid="uid://dttcwe1e7lrfe" path="res://assets/sfx/Children_foostep_3.wav" id="16_gp23c"]
+[ext_resource type="AudioStream" uid="uid://c1j0wju6il7lq" path="res://assets/sfx/Children_foostep_4.wav" id="17_1l7sy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ifiyd"]
 size = Vector2(80, 128)
@@ -17,13 +28,22 @@ point_count = 3
 [sub_resource type="CurveTexture" id="CurveTexture_no8sk"]
 curve = SubResource("Curve_1wtrj")
 
+[sub_resource type="Curve" id="Curve_8ddcc"]
+_data = [Vector2(0.00993377, 0.522329), 0.0, 0.0, 0, 0, Vector2(0.254967, 0.970605), 0.0, 0.0, 0, 0, Vector2(0.821192, 0.981628), 0.0, 0.0, 0, 0, Vector2(1, 0.496608), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ywgcn"]
+curve = SubResource("Curve_8ddcc")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0xrg8"]
+lifetime_randomness = 0.17
 particle_flag_disable_z = true
 direction = Vector3(0.5, -1, 0)
 spread = 20.0
 initial_velocity_min = 60.0
 initial_velocity_max = 120.0
 gravity = Vector3(0, 98, 0)
+scale_curve = SubResource("CurveTexture_ywgcn")
 alpha_curve = SubResource("CurveTexture_no8sk")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8omxd"]
@@ -34,6 +54,29 @@ initial_velocity_min = 60.0
 initial_velocity_max = 120.0
 gravity = Vector3(0, 98, 0)
 alpha_curve = SubResource("CurveTexture_no8sk")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kucjf"]
+streams_count = 3
+stream_0/stream = ExtResource("7_lnwr5")
+stream_1/stream = ExtResource("8_wvg84")
+stream_2/stream = ExtResource("9_irqee")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6qp0m"]
+streams_count = 2
+stream_0/stream = ExtResource("10_cd35e")
+stream_1/stream = ExtResource("11_kqwat")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jsxdy"]
+streams_count = 2
+stream_0/stream = ExtResource("12_c8c1r")
+stream_1/stream = ExtResource("13_68it1")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jmlkl"]
+streams_count = 4
+stream_0/stream = ExtResource("14_lev1x")
+stream_1/stream = ExtResource("15_lyrq8")
+stream_2/stream = ExtResource("16_gp23c")
+stream_3/stream = ExtResource("17_1l7sy")
 
 [node name="Child" type="CharacterBody2D" groups=["children"]]
 collision_layer = 4
@@ -83,5 +126,26 @@ one_shot = true
 
 [node name="ThoughtBubble" parent="." instance=ExtResource("5_uodt6")]
 position = Vector2(64, -344)
+
+[node name="Sfx" type="Node2D" parent="."]
+
+[node name="eating_sfx" type="AudioStreamPlayer2D" parent="Sfx"]
+stream = SubResource("AudioStreamRandomizer_kucjf")
+bus = &"Sound"
+
+[node name="happy_sfx" type="AudioStreamPlayer2D" parent="Sfx"]
+stream = SubResource("AudioStreamRandomizer_6qp0m")
+bus = &"Sound"
+
+[node name="sad_sfx" type="AudioStreamPlayer2D" parent="Sfx"]
+stream = SubResource("AudioStreamRandomizer_jsxdy")
+bus = &"Sound"
+
+[node name="walk_sfx" type="AudioStreamPlayer2D" parent="Sfx"]
+stream = SubResource("AudioStreamRandomizer_jmlkl")
+bus = &"Sound"
+
+[node name="cry_sfx" type="AudioStreamPlayer2D" parent="Sfx"]
+bus = &"Sound"
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
