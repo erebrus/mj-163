@@ -42,6 +42,8 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	if not Globals.in_game:
+		return
 	if Input.is_action_pressed("left"):
 		_move(Types.Direction.LEFT, delta)		
 	elif Input.is_action_pressed("right"):
@@ -52,6 +54,8 @@ func _physics_process(delta: float) -> void:
 		$walk_sfx.play()
 
 func _input(event: InputEvent) -> void:
+	if not Globals.in_game:
+		return
 	if event is InputEventMouseMotion:
 		var mouse_position = get_local_mouse_position()
 		var direction = mouse_position.x / abs(mouse_position.x)

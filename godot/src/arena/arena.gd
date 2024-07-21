@@ -32,6 +32,7 @@ var gameover:= false
 
 
 func _ready() -> void:
+	Globals.in_game = true
 	_init_areas()
 	start_time = Time.get_ticks_msec()
 	Events.child_entered_arena.connect(func(x): child_count+= 1)
@@ -69,6 +70,8 @@ func _init_areas() -> void:
 		area_right.global_position = DetectionArea.SIZE / 2.0 + Vector2(DetectionArea.SIZE.x,0) + Vector2(0,y_area_margin+i*DetectionArea.SIZE.y)
 
 func spawn_child():
+	if not Globals.in_game:
+		return
 	var area := get_best_area()
 	var child = ChildScene.instantiate()
 	child.global_position = area.get_spawn_point()
