@@ -144,9 +144,12 @@ func _update_state(new_state: Types.ChildState) -> void:
 				cry_tween.kill()
 		Types.ChildState.EATING:
 			head_sprite.hframes = 1
+			head_sprite.frame = 0
+			animation_player.play("sit")
 	
 	if was_walking:
 		body_sprite.hframes = 1
+		body_sprite.frame = 0
 		animation_player.play("sit")
 	
 	head_sprite.texture = Types.head_texture(new_state, skin, hair)
