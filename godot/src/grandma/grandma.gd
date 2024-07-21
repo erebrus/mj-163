@@ -79,7 +79,7 @@ func reload(_dessert_type: Types.DessertType, _flavour: Types.Flavour) -> void:
 	$reload_sfx.play()
 	dessert_type = _dessert_type
 	flavour = _flavour
-	current_ammo = 1
+	current_ammo = 5
 	Events.reloaded.emit()
 	
 
