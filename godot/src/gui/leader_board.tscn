@@ -52,6 +52,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4plqa")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.27, 0.2268, 0.24624, 0.733333)
+layout_mode = 2
+
 [node name="Leaderboard" type="MarginContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -97,51 +101,59 @@ theme = SubResource("Theme_wwgry")
 [node name="LeaderboardRow" parent="Leaderboard/MarginContainer/VBoxContainer/LeaderboardContents" instance=ExtResource("5_vq03k")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Inputs" type="MarginContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_constants/margin_right = 60
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Inputs"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="Inputs/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = -160
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = -60
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = -50
+theme_override_constants/margin_bottom = -80
 
-[node name="Granny" type="TextureRect" parent="VBoxContainer/MarginContainer"]
+[node name="Granny" type="TextureRect" parent="Inputs/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture = ExtResource("2_fcqlo")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Inputs/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 70
 theme_override_constants/margin_top = 160
 theme_override_constants/margin_right = 500
 theme_override_constants/margin_bottom = 180
 
-[node name="GrannyLabel" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer"]
+[node name="GrannyLabel" type="Label" parent="Inputs/VBoxContainer/MarginContainer/MarginContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.04, 0.0336, 0.03648, 1)
 theme_override_fonts/font = ExtResource("3_45s20")
-theme_override_font_sizes/font_size = 48
-text = "Good job!! Go on, tell us your name!"
+theme_override_font_sizes/font_size = 42
+text = "Well done, new highscore! Your new ranking is 20.
+Go on, tell us your name."
 vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Inputs/VBoxContainer"]
 custom_minimum_size = Vector2(600, 180)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_17suu")
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/PanelContainer"]
+[node name="PlayerName" type="LineEdit" parent="Inputs/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.04, 0.0336, 0.03648, 1)
 theme_override_fonts/font = ExtResource("3_45s20")
@@ -153,11 +165,29 @@ placeholder_text = "player name"
 max_length = 20
 context_menu_enabled = false
 
-[node name="Control" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 155)
+[node name="SubmitButton" type="Button" parent="Inputs/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_45s20")
+theme_override_font_sizes/font_size = 72
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hjafg")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_lmenb")
+theme_override_styles/normal = SubResource("StyleBoxTexture_lmenb")
+text = "submit"
+
+[node name="Control" type="Control" parent="Inputs/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="RetryButton" type="Button" parent="VBoxContainer"]
+[node name="RetryButton" type="Button" parent="Inputs/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -175,5 +205,6 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_lmenb")
 theme_override_styles/normal = SubResource("StyleBoxTexture_lmenb")
 text = "RETRY"
 
-[connection signal="text_submitted" from="VBoxContainer/PanelContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
-[connection signal="pressed" from="VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="text_submitted" from="Inputs/VBoxContainer/PanelContainer/PlayerName" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="Inputs/VBoxContainer/SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="Inputs/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
