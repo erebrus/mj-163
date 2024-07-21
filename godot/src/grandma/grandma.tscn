@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://nob8fbq77y0a" path="res://src/grandma/cannon.tscn" id="3_4nk1i"]
 [ext_resource type="Texture2D" uid="uid://glj5vpbxurxj" path="res://assets/gfx/grandma/grandma-fg.png" id="4_l15ix"]
 [ext_resource type="PackedScene" uid="uid://bo160ji4aulmn" path="res://src/grandma/cake/dessert_sprite.tscn" id="4_ungno"]
+[ext_resource type="FontFile" uid="uid://bq8pv3ex6ljl6" path="res://assets/fonts/Heyho-Regular.ttf.otf" id="5_gr3i2"]
 [ext_resource type="PackedScene" uid="uid://xi421nvx1edp" path="res://src/grandma/SpeechBubble.tscn" id="6_tanuc"]
 [ext_resource type="AudioStream" uid="uid://flicmrpvks0y" path="res://assets/sfx/Changing_Ammo_1.wav" id="7_nhuoc"]
 [ext_resource type="AudioStream" uid="uid://c5pcpxpmi3wap" path="res://assets/sfx/Changing_Ammo_2.wav" id="8_2lvwb"]
@@ -13,10 +14,6 @@
 [ext_resource type="AudioStream" uid="uid://cymfrgvnxmknb" path="res://assets/sfx/Grandma_Footstep_2.wav" id="11_dkyjs"]
 [ext_resource type="AudioStream" uid="uid://cl1gfge70i2ej" path="res://assets/sfx/Grandma_Footstep_3.wav" id="12_eg0bq"]
 [ext_resource type="AudioStream" uid="uid://b3f4xixhaf5sj" path="res://assets/sfx/Canon_adjust_loop.wav" id="13_tjhnb"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_qx6y6"]
-line_spacing = 0.0
-font_size = 30
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0ipl"]
 size = Vector2(251.5, 163)
@@ -65,19 +62,13 @@ position = Vector2(-174, -233)
 
 [node name="AmmoLabel" type="Label" parent="AmmoCounter"]
 unique_name_in_owner = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -21.0
-offset_right = 20.0
-offset_bottom = 21.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -30.0
+offset_top = -22.0
+offset_right = 10.0
+offset_bottom = 24.0
+theme_override_fonts/font = ExtResource("5_gr3i2")
+theme_override_font_sizes/font_size = 64
 text = "3"
-label_settings = SubResource("LabelSettings_qx6y6")
 horizontal_alignment = 1
 vertical_alignment = 1
 
