@@ -1,9 +1,9 @@
 extends Node
 
 const HAPPINESS_MAP={
-	Types.ChildState.CRYING:-5.0,
-	Types.ChildState.ABOUT_TO_CRY:-2.0,
-	Types.ChildState.UPSET:-1.0
+	Types.ChildState.CRYING:-3.5,
+	Types.ChildState.ABOUT_TO_CRY:-1.0,
+	Types.ChildState.UPSET:-0.75
 
 }
 const BAD_FEED_HAPPINESS_PENALTY = -3
