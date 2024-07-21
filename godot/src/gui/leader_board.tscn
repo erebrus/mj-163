@@ -148,7 +148,7 @@ clip_text = true
 [node name="PanelContainer" type="PanelContainer" parent="Inputs/VBoxContainer"]
 custom_minimum_size = Vector2(600, 180)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_17suu")
 
@@ -167,7 +167,7 @@ context_menu_enabled = false
 
 [node name="SubmitButton" type="Button" parent="Inputs/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_45s20")
@@ -189,7 +189,7 @@ layout_mode = 2
 
 [node name="RetryButton" type="Button" parent="Inputs/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_45s20")
