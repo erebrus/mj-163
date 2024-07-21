@@ -59,6 +59,7 @@ func _input(event: InputEvent) -> void:
 			_face(direction)
 		
 		barrel.point_at(mouse_position)
+		
 	
 	if event.is_action_pressed("shoot"):
 		if _has_ammo():

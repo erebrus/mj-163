@@ -2,6 +2,7 @@ class_name CannonBarrel extends Node2D
 
 const GUIDE_LENGTH = 400
 const DEFAULT_CAKE = preload("res://src/grandma/cake/bullet.tscn")
+const CLOUD = preload("res://src/grandma/cloud.tscn")
 
 const CAKES = {}
 
@@ -37,6 +38,9 @@ var min_angle: float
 
 @onready var targetting_guide: Line2D = $Line2D
 @onready var bullet_spawn: Marker2D = $BulletSpawn
+
+
+var bullet: Node2D = null
 
 
 func _ready() ->void:
@@ -76,17 +80,32 @@ func point_at(target: Vector2) -> void:
 	
 
 func shoot(dessert_type: Types.DessertType, flavour: Types.Flavour) -> void:
-	Logger.info("Shooting at angle %.4fº" % rotation_degrees)
 	var BulletScene = DEFAULT_CAKE
 	if CAKES.has(dessert_type):
 		BulletScene = CAKES[dessert_type]
+	bullet = BulletScene.instantiate()
+	bullet.setup(dessert_type, flavour)
 	
-	var bullet = BulletScene.instantiate()
+	$AnimationPlayer.play("shoot")
+	
+
+func empty_shot():
+	$blank_fire_sfx.play()
+	
+
+func _do_shoot():
+	Logger.info("Shooting at angle %.4fº" % rotation_degrees)
+	
 	bullet.global_position = bullet_spawn.global_position
 	get_tree().root.add_child(bullet)
 	$fire_sfx.play()
-	bullet.shoot(dessert_type, flavour, rotation)
+	bullet.shoot(rotation)
 	
-func empty_shot():
-	$blank_fire_sfx.play()
+	
+	var cloud = CLOUD.instantiate()
+	cloud.global_rotation = global_rotation
+	cloud.global_position = bullet_spawn.global_position
+	get_tree().root.add_child(cloud)
+	
+	bullet = null
 	

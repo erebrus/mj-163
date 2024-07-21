@@ -11,15 +11,21 @@ var eaten:= false
 @onready var sprite: DessertSprite = $DessertSprite
 
 
+func _ready():
+	sprite.dessert_type = dessert_type
+	sprite.flavour = flavour
+	
+
 func _physics_process(delta: float) -> void:
 	position += velocity * delta
 	
 
-func shoot(_dessert_type: Types.DessertType, _flavour:Types.Flavour, angle: float) -> void:
+func setup(_dessert_type: Types.DessertType, _flavour:Types.Flavour) -> void:
 	dessert_type = _dessert_type
 	flavour = _flavour
-	sprite.dessert_type = dessert_type
-	sprite.flavour = flavour
+	
+
+func shoot(angle: float) -> void:
 	velocity = Vector2(start_speed, 0).rotated(angle - PI/2)
 	visible = true
 	
