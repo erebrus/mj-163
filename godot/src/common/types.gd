@@ -34,11 +34,11 @@ const BARKS = {
 		"Oops, not quite right. Sorry, sweetie!",
 		"Hang on, I'll get it right next time!",
 		"Uh-oh, not your favorite? My mistake!",
-		"Oopsie, wrong flavor! Let’s fix that."	
+		"Oopsie, wrong flavor! Let's fix that."	
 	],
 	BarkType.CRYING:[
 		"Oh no, don't cry! Cake is coming!",
-		"Hold on, sweetie, I’ve got a treat for you!",
+		"Hold on, sweetie, I've got a treat for you!",
 		"Tears won't do, let's get you some cake!",
 		"Don't be sad, my dear, your dessert is here!",
 		"Dry those eyes, sweetie, Grandma's got your cake!"
