@@ -85,9 +85,9 @@ enum Pattern {
 }
 
 const ScoreTable := {
-	ChildState.CRYING : 5,
-	ChildState.ABOUT_TO_CRY : 20,
-	ChildState.UPSET : 50,
+	ChildState.CRYING : 10,
+	ChildState.ABOUT_TO_CRY : 50,
+	ChildState.UPSET : 75,
 	ChildState.NORMAL : 100,
 	
 }

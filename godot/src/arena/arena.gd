@@ -1,9 +1,9 @@
 extends Node
 
 const HAPPINESS_MAP={
-	Types.ChildState.CRYING:-5.0,
-	Types.ChildState.ABOUT_TO_CRY:-2.0,
-	Types.ChildState.UPSET:-1.0
+	Types.ChildState.CRYING:-3.5,
+	Types.ChildState.ABOUT_TO_CRY:-1.0,
+	Types.ChildState.UPSET:-0.75
 
 }
 const BAD_FEED_HAPPINESS_PENALTY = -3
@@ -18,8 +18,8 @@ const ScoreScene:=preload("res://src/child/ScoreLabel.tscn")
 @export var area_rows := 4
 @export var y_area_margin := 200.0
 
-@export var initial_spawn_rate := 8.0
-@export var time_to_double := 100.0
+@export var initial_spawn_rate := 6.0
+@export var time_to_double := 200.0
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var timer: Timer = $Timer
 
@@ -130,7 +130,7 @@ func _update_hud():
 	Logger.info("new score: %d" % [score])
 	
 func get_max_children()->int:
-	return 7
+	return 10
 
 func update_happiness():
 	var happiness_delta:float = 0.0

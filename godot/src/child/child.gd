@@ -8,9 +8,9 @@ const CRY_SFX = [
 ]
 const EATING_TIME=1
 const REACTING_TIME=2
-const INITIAL_HAPPINESS_RATE =7.0
-const TIME_TO_HIGHER_RATE :=30.0
-const MAX_HAPPINESS_RATE :=15.0
+const INITIAL_HAPPINESS_RATE =15.0
+const TIME_TO_HIGHER_RATE :=15.0
+const MAX_HAPPINESS_RATE :=25.0
 
 const MIN_DIRECTION_CHANGE_TIME = 6 
 const MAX_DIRECTION_CHANGE_TIME = 15 
@@ -103,9 +103,9 @@ func _physics_process(delta: float) -> void:
 func get_state_from_happiness():
 	if happiness == 0:
 		return Types.ChildState.CRYING
-	elif happiness < 30:
+	elif happiness < 25:
 		return Types.ChildState.ABOUT_TO_CRY
-	elif happiness < 60:
+	elif happiness < 50:
 		return Types.ChildState.UPSET
 	else:
 		return Types.ChildState.NORMAL
