@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var start_speed: float = 500
+@export var start_speed: float = 700
 @export var dessert_type: Types.DessertType
 @export var flavour: Types.Flavour
 
