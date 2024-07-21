@@ -32,6 +32,7 @@ var gameover:= false
 
 
 func _ready() -> void:
+	Globals.in_game = true
 	_init_areas()
 	start_time = Time.get_ticks_msec()
 	Events.child_entered_arena.connect(func(x): child_count+= 1)
@@ -41,6 +42,7 @@ func _ready() -> void:
 	Events.happiness_changed.emit(happiness)
 	Events.on_feed.connect(func(x):happiness+=FEED_HAPPINESS_BONUS; Events.happiness_changed.emit(happiness))
 	Events.on_bad_feed.connect(func(x):happiness+=BAD_FEED_HAPPINESS_PENALTY; Events.happiness_changed.emit(happiness))
+	Events.on_clear_players_requested.connect(clear_players)
 	#var success: bool = await PlayerAccounts.register_guest()
 	#Logger.info("%s" % [success])
 	#await Leaderboards.post_guest_score("cake-sharing-happiness-score-S7ha", 100.0, "player_name")
@@ -69,6 +71,8 @@ func _init_areas() -> void:
 		area_right.global_position = DetectionArea.SIZE / 2.0 + Vector2(DetectionArea.SIZE.x,0) + Vector2(0,y_area_margin+i*DetectionArea.SIZE.y)
 
 func spawn_child():
+	if not Globals.in_game:
+		return
 	var area := get_best_area()
 	var child = ChildScene.instantiate()
 	child.global_position = area.get_spawn_point()
@@ -144,12 +148,17 @@ func check_game_over():
 	if happiness == 0 and not gameover:
 		do_gameover()
 	
-
+func clear_players():
+	for child in get_tree().get_nodes_in_group("children"):
+		child.queue_free()	
+		
 func do_gameover():
 	gameover = true
-	
 	Logger.info("Game over!")
 	%LeaderBoard.submit_score(score)
+	
+	
+
 	
 
 func _on_tick_timer_timeout() -> void:

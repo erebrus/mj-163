@@ -16,7 +16,7 @@ var music_on:=true:
 		music_on=v
 		Logger.info("music %s" % [music_on])
 		var sfx_index= AudioServer.get_bus_index("Music")
-		AudioServer.set_bus_volume_db(sfx_index, -6 if music_on else -100)		
+		AudioServer.set_bus_volume_db(sfx_index, -9 if music_on else -100)		
 		#if not music_on:
 			#menu_music.stop()
 			#game_music.stop()
@@ -78,7 +78,7 @@ func _init_logger():
 
 func play_music(node:AudioStreamPlayer):
 	if not node.playing:
-		node.volume_db = -6
+		node.volume_db = -9
 		node.play()
 
 func fade_in_music(node:AudioStreamPlayer, duration := 1):

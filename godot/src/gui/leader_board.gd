@@ -36,6 +36,7 @@ func update():
 	
 
 func submit_score(score: int):
+	Globals.in_game = false
 	var previous = await LootLocker.leaderboard.get_player_score(LEADERBOARD_KEY)
 	
 	is_highscore = previous == null or previous.score < score
@@ -45,6 +46,7 @@ func submit_score(score: int):
 		previous = await LootLocker.leaderboard.get_player_score(LEADERBOARD_KEY)
 	
 	await update()
+	Events.on_clear_players_requested.emit()
 	update_granny_text(previous)
 	show()
 	
@@ -77,6 +79,7 @@ func update_granny_text(player):
 	
 
 func _on_retry_button_pressed():
+	Globals.in_game = true
 	get_tree().reload_current_scene()
 
 

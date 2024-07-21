@@ -99,6 +99,10 @@ gameover={
 2d_physics/layer_3="children"
 2d_physics/layer_5="cake"
 
+[lootlocker]
+
+game_api_key="dev_57eb2833fc6648f299248ab62f364127"
+
 [quiver]
 
 general/auth_token="Evo1aW5MYe4hZY9MxQY6mF7uUeeabBCHQQbV4lTQ"
