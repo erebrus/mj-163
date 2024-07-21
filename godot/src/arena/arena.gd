@@ -1,14 +1,14 @@
 extends Node
 
 const HAPPINESS_MAP={
-	Types.ChildState.CRYING:-1.0,
-	Types.ChildState.ABOUT_TO_CRY:-.5,
-	Types.ChildState.UPSET:-.2
+	Types.ChildState.CRYING:-5.0,
+	Types.ChildState.ABOUT_TO_CRY:-1.5,
+	Types.ChildState.UPSET:-.75
 
 }
 const BAD_FEED_HAPPINESS_PENALTY = -3
 const FEED_HAPPINESS_BONUS = 5
-const CRY_HAPPINESS_PENALTY=-1
+const CRY_HAPPINESS_PENALTY=-5
 const NO_CRY_HAPPINESS_BONUS=0
 
 const AreaScene:PackedScene = preload("res://src/arena/detection_area.tscn")
@@ -19,7 +19,7 @@ const ScoreScene:=preload("res://src/child/ScoreLabel.tscn")
 @export var y_area_margin := 200.0
 
 @export var initial_spawn_rate := 10.0
-@export var time_to_double := 120.0
+@export var time_to_double := 80.0
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var timer: Timer = $Timer
 
