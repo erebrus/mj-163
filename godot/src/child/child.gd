@@ -14,7 +14,7 @@ const MAX_HAPPINESS_RATE :=25.0
 
 const MIN_DIRECTION_CHANGE_TIME = 6 
 const MAX_DIRECTION_CHANGE_TIME = 15 
-const SPEED = 100.0
+const SPEED = 200.0
 const MIN_Y = 300.0
 const MAX_Y = 760.0
 
