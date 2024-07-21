@@ -107,4 +107,6 @@ func _stop() -> void:
 	moving = false
 
 func bark(type:Types.BarkType) -> void:
+	if type == Types.BarkType.GOOD:
+		$giggle_sfx.play()
 	$SpeechBubble.show_text(Types.BARKS[type].pick_random())
