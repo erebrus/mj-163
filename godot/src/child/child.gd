@@ -1,14 +1,16 @@
 extends CharacterBody2D
 class_name Child
 
+const CRY_SFX = [
+	preload("res://assets/sfx/Children_final_sad_1.wav"),
+	preload("res://assets/sfx/Children_final_sad_2.wav"),
+	preload("res://assets/sfx/Children_final_sad_3.wav"),
+]
 const EATING_TIME=1
 const REACTING_TIME=2
 const INITIAL_HAPPINESS_RATE =5.0
 const TIME_TO_HIGHER_RATE :=30.0
 const MAX_HAPPINESS_RATE :=15.0
-
-
-
 
 const MIN_DIRECTION_CHANGE_TIME = 6 
 const MAX_DIRECTION_CHANGE_TIME = 20 
@@ -41,7 +43,7 @@ var happiness = 100
 var state := Types.ChildState.NORMAL
 
 var cry_tween: Tween
-
+var cry_pitch:= randf_range(0.8, 1)
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var direction_timer: Timer = $DirectionTimer
@@ -67,6 +69,9 @@ func _ready() -> void:
 	
 	direction_timer.wait_time = wt
 	direction_timer.start()
+	
+	cry_sfx.stream = CRY_SFX.pick_random()
+	
 	#
 	#HyperLog.log(self).text("velocity>round")
 	#HyperLog.log(self).text("position>round")
@@ -81,9 +86,6 @@ func _choose_cake():
 	
 func _physics_process(delta: float) -> void:	
 	_update_happiness(delta)
-	
-	right_cry_particles.emitting = state == Types.ChildState.CRYING
-	left_cry_particles.emitting = state == Types.ChildState.CRYING
 	
 	$ThoughtBubble.flip = velocity.x > 0
 		
@@ -131,6 +133,9 @@ func _update_state():
 	
 	if state != Types.ChildState.CRYING:
 		head_sprite.hframes = 1
+		right_cry_particles.emitting = false
+		left_cry_particles.emitting = false
+		
 		if cry_tween != null:
 			cry_tween.kill()
 	
@@ -244,15 +249,37 @@ func _cry() -> void:
 	if cry_tween:
 		cry_tween.kill()
 	cry_tween = create_tween()
-	cry_sfx.play() #TODO repeat? loop?
+	
 	var angle = randf_range(25, 50)
 	if randi() % 2 == 1:
 		angle = -angle
 	
+	cry_sfx.pitch_scale = cry_pitch + randf_range(-0.15, 0.1)
+	
 	head_pivot.rotation = 0
+	
+	
+	# crocodrile tears
+	cry_tween.tween_property(right_cry_particles, "emitting", true, 0)
+	cry_tween.tween_property(left_cry_particles, "emitting", true, 0)
+	cry_tween.tween_callback(cry_sfx.play)
+	cry_tween.tween_interval(randf_range(1, 1.3))
+	cry_tween.tween_property(right_cry_particles, "emitting", false, 0)
+	cry_tween.tween_property(left_cry_particles, "emitting", false, 0)
+	
+	
+	# turn head to the side
 	cry_tween.tween_property(head_pivot, "rotation", deg_to_rad(angle), 0.3).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
-	cry_tween.tween_interval(randf_range(1, 4))
-	cry_tween.tween_property(head_pivot, "rotation", 0, 0.3).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+	cry_tween.tween_interval(0.2)
 	cry_tween.tween_interval(randf_range(0, 0.5))
+	
+	# straighten head
+	cry_tween.tween_property(head_pivot, "rotation", 0, 0.3).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+	
+	
+	
+	
+	
 	cry_tween.tween_callback(_cry)
+	
 	

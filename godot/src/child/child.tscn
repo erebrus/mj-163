@@ -1,8 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://c3vcrbvu1nfgu"]
+[gd_scene load_steps=29 format=3 uid="uid://c3vcrbvu1nfgu"]
 
 [ext_resource type="Script" path="res://src/child/child.gd" id="1_l4c32"]
 [ext_resource type="Texture2D" uid="uid://bqxx8qa6g5fbo" path="res://assets/gfx/kids/body-types/clothes-1-skin-1.png" id="2_0v0rt"]
-[ext_resource type="Texture2D" uid="uid://3ka3nih87htq" path="res://assets/gfx/kids/faces/skin-1.1/chew.png" id="3_q7488"]
+[ext_resource type="Texture2D" uid="uid://lry3b76fq87b" path="res://assets/gfx/kids/faces/skin-1.1/disgust.png" id="3_niobo"]
 [ext_resource type="AnimationLibrary" uid="uid://c6lt5hj23useu" path="res://src/child/animations.tres" id="5_a5ow7"]
 [ext_resource type="PackedScene" uid="uid://cxmi6ni1phyla" path="res://src/child/thought_bubble.tscn" id="5_uodt6"]
 [ext_resource type="Texture2D" uid="uid://bx6tv2ykkdpyv" path="res://assets/gfx/particles/teardrop.png" id="6_6uo8t"]
@@ -17,7 +17,6 @@
 [ext_resource type="AudioStream" uid="uid://dtel4etwlqo84" path="res://assets/sfx/Children_foostep_2.wav" id="15_lyrq8"]
 [ext_resource type="AudioStream" uid="uid://dttcwe1e7lrfe" path="res://assets/sfx/Children_foostep_3.wav" id="16_gp23c"]
 [ext_resource type="AudioStream" uid="uid://c1j0wju6il7lq" path="res://assets/sfx/Children_foostep_4.wav" id="17_1l7sy"]
-[ext_resource type="AudioStream" uid="uid://onu8om8fbhib" path="res://assets/sfx/Children_final_sad.wav" id="18_1uhaw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ifiyd"]
 size = Vector2(80, 128)
@@ -37,23 +36,23 @@ point_count = 4
 curve = SubResource("Curve_8ddcc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0xrg8"]
-lifetime_randomness = 0.17
 particle_flag_disable_z = true
-direction = Vector3(0.5, -1, 0)
+direction = Vector3(1, -1, 0)
 spread = 20.0
-initial_velocity_min = 60.0
+initial_velocity_min = 80.0
 initial_velocity_max = 120.0
 gravity = Vector3(0, 98, 0)
 scale_curve = SubResource("CurveTexture_ywgcn")
 alpha_curve = SubResource("CurveTexture_no8sk")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8omxd"]
-particle_flag_disable_z = true
-direction = Vector3(-0.5, -1, 0)
+particle_flag_rotate_y = true
+direction = Vector3(-1, -1, 0)
 spread = 20.0
-initial_velocity_min = 60.0
+initial_velocity_min = 80.0
 initial_velocity_max = 120.0
 gravity = Vector3(0, 98, 0)
+scale_curve = SubResource("CurveTexture_ywgcn")
 alpha_curve = SubResource("CurveTexture_no8sk")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kucjf"]
@@ -101,23 +100,23 @@ position = Vector2(0, -34)
 [node name="Head" type="Sprite2D" parent="Sprites/HeadPivot"]
 unique_name_in_owner = true
 position = Vector2(0, -80)
-texture = ExtResource("3_q7488")
+texture = ExtResource("3_niobo")
 
 [node name="RightCryParticles" type="GPUParticles2D" parent="Sprites/HeadPivot/Head"]
 position = Vector2(44, 1)
 emitting = false
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_0xrg8")
 texture = ExtResource("6_6uo8t")
 lifetime = 2.5
-explosiveness = 0.75
 
 [node name="LeftCryParticles" type="GPUParticles2D" parent="Sprites/HeadPivot/Head"]
 position = Vector2(-36, 1)
 emitting = false
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_8omxd")
 texture = ExtResource("6_6uo8t")
 lifetime = 2.5
-explosiveness = 0.75
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -150,7 +149,6 @@ stream = SubResource("AudioStreamRandomizer_jmlkl")
 bus = &"Sound"
 
 [node name="cry_sfx" type="AudioStreamPlayer2D" parent="Sfx"]
-stream = ExtResource("18_1uhaw")
 bus = &"Sound"
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
