@@ -9,8 +9,6 @@ var has_dessert: bool = false
 @onready var sprite: DessertSprite = $DessertSprite
 
 
-func _ready() -> void:
-	_spawn_dessert()
 	
 
 func _input(event: InputEvent) -> void:
@@ -28,12 +26,13 @@ func _reload(grandma: Grandma) -> void:
 	has_dessert = false
 	sprite.visible = false
 	await get_tree().create_timer(cooldown).timeout
-	_spawn_dessert()
+	Events.dessert_spawn_requested.emit(self)
+	#_spawn_dessert()
 	
 
-func _spawn_dessert() -> void:
-	dessert_type = Types.DessertType.values().pick_random()
-	flavour = Types.Flavour.values().pick_random()
+func spawn_dessert(_dessert_type:Types.DessertType, _flavour:Types.Flavour) -> void:
+	dessert_type = _dessert_type
+	flavour = _flavour
 	
 	has_dessert = true
 	sprite.dessert_type = dessert_type
