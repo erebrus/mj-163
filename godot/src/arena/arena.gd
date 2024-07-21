@@ -127,7 +127,7 @@ func _update_hud():
 	Logger.info("new score: %d" % [score])
 	
 func get_max_children()->int:
-	return 7
+	return 15
 
 func update_happiness():
 	var happiness_delta:float = 0.0
