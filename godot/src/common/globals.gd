@@ -9,7 +9,7 @@ const GameDataPath = "user://conf.cfg"
 var config:ConfigFile
 
 var debug_build := false
-
+var in_game:=false
 
 var music_on:=true:
 	set(v):
@@ -29,15 +29,25 @@ var sound_on:=true:
 		AudioServer.set_bus_volume_db(sfx_index, 0 if sound_on else -100)
 
 @onready var menu_music: AudioStreamPlayer = $menu_music
+@onready var menu_music_loop: AudioStreamPlayer = $menu_music_loop
 @onready var game_music: AudioStreamPlayer = $game_music
 
 func _ready():
 	_init_logger()
+	Logger.info("Starting menu music")
 	fade_in_music(menu_music)
+	await menu_music.finished
+	if not in_game:
+		Logger.info("Starting menu music loop")
+		play_music(menu_music_loop)
 
 	
 func start_game():
-	fade_music(menu_music,1)
+	in_game=true
+	if menu_music.playing:
+		fade_music(menu_music,1)
+	elif menu_music_loop.playing:
+		fade_music(menu_music_loop,1)
 	await get_tree().create_timer(1).timeout
 	get_tree().change_scene_to_file("res://src/arena/arena.tscn")
 	fade_in_music(game_music)
@@ -68,7 +78,7 @@ func _init_logger():
 
 func play_music(node:AudioStreamPlayer):
 	if not node.playing:
-		node.volume_db = 0
+		node.volume_db = -6
 		node.play()
 
 func fade_in_music(node:AudioStreamPlayer, duration := 1):
