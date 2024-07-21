@@ -1,7 +1,16 @@
 extends Node2D
 
-const  CRY_HAPPINESS_PENALTY=-1
-const  NO_CRY_HAPPINESS_BONUS=1
+const HAPPINESS_MAP={
+	Types.ChildState.CRYING:-1.0,
+	Types.ChildState.ABOUT_TO_CRY:-.5,
+	Types.ChildState.UPSET:-.2
+
+}
+const BAD_FEED_HAPPINESS_PENALTY = -3
+const FEED_HAPPINESS_BONUS = 5
+const CRY_HAPPINESS_PENALTY=-1
+const NO_CRY_HAPPINESS_BONUS=0
+
 const AreaScene:PackedScene = preload("res://src/arena/detection_area.tscn")
 const ChildScene:PackedScene = preload("res://src/child/child.tscn")
 const ScoreScene:=preload("res://src/child/ScoreLabel.tscn")
@@ -28,6 +37,8 @@ func _ready() -> void:
 	Events.on_feed.connect(_on_feed)
 	Events.score_changed.emit(score, false)
 	Events.happiness_changed.emit(happiness)
+	Events.on_feed.connect(func(x):happiness+=FEED_HAPPINESS_BONUS; Events.happiness_changed.emit(happiness))
+	Events.on_bad_feed.connect(func(x):happiness+=BAD_FEED_HAPPINESS_PENALTY; Events.happiness_changed.emit(happiness))
 	#await Leaderboards.post_guest_score("cake-sharing-happiness-score-S7ha", 100.0, "player_name")
 	
 
@@ -115,8 +126,8 @@ func get_max_children()->int:
 func update_happiness():
 	var happiness_delta:float = 0.0
 	for c in get_tree().get_nodes_in_group("children"):
-		if c.state == Types.ChildState.CRYING:
-			happiness_delta+=CRY_HAPPINESS_PENALTY
+		if c.state in HAPPINESS_MAP.keys():			
+			happiness_delta+=HAPPINESS_MAP[c.state]
 	if happiness_delta == 0.0:
 		happiness_delta += NO_CRY_HAPPINESS_BONUS
 	happiness = clamp(happiness + happiness_delta, 0, 100)#TODO const for 100
