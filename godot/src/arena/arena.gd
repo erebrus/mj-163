@@ -1,5 +1,7 @@
 extends Node2D
 
+const  CRY_HAPPINESS_PENALTY=-1
+const  NO_CRY_HAPPINESS_BONUS=1
 const AreaScene:PackedScene = preload("res://src/arena/detection_area.tscn")
 const ChildScene:PackedScene = preload("res://src/child/child.tscn")
 const ScoreScene:=preload("res://src/child/ScoreLabel.tscn")
@@ -15,6 +17,7 @@ const ScoreScene:=preload("res://src/child/ScoreLabel.tscn")
 var child_count:int = 0
 var start_time:int=0
 var score=0
+var happiness:=100.0
 var player_name="test_player"
 
 func _ready() -> void:
@@ -23,7 +26,8 @@ func _ready() -> void:
 	Events.child_entered_arena.connect(func(x): child_count+= 1)
 	Events.child_exited_arena.connect(func(x): child_count-= 1)
 	Events.on_feed.connect(_on_feed)
-	
+	Events.score_changed.emit(score, false)
+	Events.happiness_changed.emit(happiness)
 	#await Leaderboards.post_guest_score("cake-sharing-happiness-score-S7ha", 100.0, "player_name")
 	
 
@@ -99,6 +103,7 @@ func _on_feed(child:Child):
 	l.set_score(score_delta)
 	add_child(l)
 	score += score_delta
+	Events.score_changed.emit(score, true)
 	_update_hud()
 	
 func _update_hud():
@@ -106,3 +111,23 @@ func _update_hud():
 	
 func get_max_children()->int:
 	return 7
+
+func update_happiness():
+	var happiness_delta:float = 0.0
+	for c in get_tree().get_nodes_in_group("children"):
+		if c.state == Types.ChildState.CRYING:
+			happiness_delta+=CRY_HAPPINESS_PENALTY
+	if happiness_delta == 0.0:
+		happiness_delta += NO_CRY_HAPPINESS_BONUS
+	happiness = clamp(happiness + happiness_delta, 0, 100)#TODO const for 100
+	Events.happiness_changed.emit(happiness)
+	check_game_over()
+	
+func check_game_over():
+	if happiness == 0:
+		Logger.info("Game over!")
+		get_tree().quit()
+		
+func _on_tick_timer_timeout() -> void:
+	update_happiness()
+	Events.tick.emit()

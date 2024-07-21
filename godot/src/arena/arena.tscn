@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmkxwyrd01d5c"]
+[gd_scene load_steps=9 format=3 uid="uid://cmkxwyrd01d5c"]
 
 [ext_resource type="Script" path="res://src/arena/arena.gd" id="1_1uucj"]
 [ext_resource type="Texture2D" uid="uid://ctdu624vk3jt" path="res://assets/gfx/background/background-art.png" id="2_21irk"]
 [ext_resource type="PackedScene" uid="uid://bysvywpn0uoie" path="res://src/dessert_table/dessert_table.tscn" id="3_hjtns"]
 [ext_resource type="PackedScene" uid="uid://l0bs5d5chsgh" path="res://src/grandma/grandma.tscn" id="3_o4o4u"]
+[ext_resource type="PackedScene" uid="uid://dcdmaujn2wpqo" path="res://src/ui/ScoreUI.tscn" id="5_0bdql"]
+[ext_resource type="PackedScene" uid="uid://j6l3pgl2h0c6" path="res://src/ui/HappinessMeter.tscn" id="6_aw8j4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5r0p"]
 size = Vector2(1920, 1080)
@@ -22,6 +24,9 @@ position = Vector2(960, 540)
 texture = ExtResource("2_21irk")
 
 [node name="Areas" type="Node2D" parent="."]
+
+[node name="TickTimer" type="Timer" parent="."]
+autostart = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
@@ -48,6 +53,20 @@ curve = SubResource("Curve2D_vshdf")
 [node name="Grandma" parent="GrandmaPath" instance=ExtResource("3_o4o4u")]
 position = Vector2(200, 1000)
 
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ScoreUI" parent="HUD" instance=ExtResource("5_0bdql")]
+
+[node name="HappinessMeter" parent="HUD" instance=ExtResource("6_aw8j4")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -386.0
+offset_right = 0.0
+offset_bottom = 102.0
+grow_horizontal = 0
+
+[connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="body_entered" from="ArenaArea" to="." method="_on_arena_area_body_entered"]
 [connection signal="body_exited" from="ArenaArea" to="." method="_on_arena_area_body_exited"]
