@@ -85,12 +85,7 @@ func _physics_process(delta: float) -> void:
 	right_cry_particles.emitting = state == Types.ChildState.CRYING
 	left_cry_particles.emitting = state == Types.ChildState.CRYING
 	
-	if velocity.x > 0:		
-		$ThoughtBubble.position.x = -64  
-		$ThoughtBubble.flip_h = true
-	else:
-		$ThoughtBubble.position.x = 64  
-		$ThoughtBubble.flip_h = false
+	$ThoughtBubble.flip = velocity.x > 0
 		
 	if should_move():
 		move_and_slide()

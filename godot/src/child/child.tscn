@@ -125,7 +125,8 @@ libraries = {
 one_shot = true
 
 [node name="ThoughtBubble" parent="." instance=ExtResource("5_uodt6")]
-position = Vector2(64, -344)
+position = Vector2(101, -252)
+scale = Vector2(0.7, 0.7)
 
 [node name="Sfx" type="Node2D" parent="."]
 

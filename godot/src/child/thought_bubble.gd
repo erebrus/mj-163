@@ -11,6 +11,16 @@ class_name ThoughtBubble
 			$Content.scale=Vector2.ONE *1.0
 			
 
+var flip: bool:
+	set(value):
+		if value == flip:
+			return
+		flip = value
+		flip_h = value
+		position.x = -position.x
+		rotation = -rotation
+		$Content.rotation = - $Content.rotation
+	
 
 func pattern_matches(dessert_type:Types.DessertType, flavour:Types.Flavour)->bool:
 	match thought_pattern:
