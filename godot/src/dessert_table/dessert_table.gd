@@ -15,6 +15,7 @@ const Stand = preload("res://src/dessert_table/dessert_stand.tscn")
 
 var stands: Array[DessertStand]
 
+var dessert_bag=[]
 
 func _ready() -> void:
 	Events.dessert_spawn_requested.connect(_on_dessert_spawn_requested)
@@ -28,9 +29,16 @@ func _ready() -> void:
 	for s in stands:
 		_on_dessert_spawn_requested(s)
 
+func fill_bag():
+	dessert_bag.clear()
+	dessert_bag.append_array(Types.DessertType.values())
+		
 func _on_dessert_spawn_requested(stand):
+	if dessert_bag.is_empty():
+		fill_bag()
 	
-	var dessert_type = Types.DessertType.values().pick_random()
+	var dessert_type = dessert_bag.pick_random()
+	dessert_bag.erase(dessert_type)
 	var flavour = Types.Flavour.values().pick_random()
 	
 	for s in stands:
