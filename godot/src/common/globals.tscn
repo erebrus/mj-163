@@ -13,4 +13,5 @@ bus = &"Music"
 
 [node name="menu_music" type="AudioStreamPlayer" parent="."]
 process_mode = 3
+stream = ExtResource("2_44h53")
 bus = &"Music"

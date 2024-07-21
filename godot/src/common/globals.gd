@@ -11,18 +11,36 @@ var config:ConfigFile
 var debug_build := false
 
 
+var music_on:=true:
+	set(v):
+		music_on=v
+		Logger.info("music %s" % [music_on])
+		var sfx_index= AudioServer.get_bus_index("Music")
+		AudioServer.set_bus_volume_db(sfx_index, -6 if music_on else -100)		
+		#if not music_on:
+			#menu_music.stop()
+			#game_music.stop()
+			
+var sound_on:=true:
+	set(v):
+		sound_on = v
+		Logger.info("sound %s" % [sound_on])
+		var sfx_index= AudioServer.get_bus_index("Sound")
+		AudioServer.set_bus_volume_db(sfx_index, 0 if sound_on else -100)
 
-
-#@onready var menu_music: AudioStreamPlayer = $menu_music
+@onready var menu_music: AudioStreamPlayer = $menu_music
 @onready var game_music: AudioStreamPlayer = $game_music
 
 func _ready():
 	_init_logger()
-	fade_in_music(game_music)
+	fade_in_music(menu_music)
 
 	
-#func start_game():
-	#get_tree().change_scene_to_file("res://src/game.tscn")
+func start_game():
+	fade_music(menu_music,1)
+	await get_tree().create_timer(1).timeout
+	get_tree().change_scene_to_file("res://src/arena/arena.tscn")
+	fade_in_music(game_music)
 #
 #func win_game():
 	#get_tree().change_scene_to_file("res://src/win_screen.tscn")
@@ -46,6 +64,7 @@ func _init_logger():
 	#var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	#tween.tween_property(%Music,"volume_db",0,2)
 	
+
 
 func play_music(node:AudioStreamPlayer):
 	if not node.playing:
