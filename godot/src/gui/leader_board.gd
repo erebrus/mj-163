@@ -46,6 +46,7 @@ func submit_score(score: int):
 		previous = await LootLocker.leaderboard.get_player_score(LEADERBOARD_KEY)
 	
 	await update()
+	Events.on_clear_players_requested.emit()
 	update_granny_text(previous)
 	show()
 	

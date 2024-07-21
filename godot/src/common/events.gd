@@ -12,3 +12,4 @@ signal reloaded
 signal score_changed(score:int, flash:bool)
 signal happiness_changed(value)
 signal dessert_spawn_requested(stand)
+signal on_clear_players_requested()

@@ -42,6 +42,7 @@ func _ready() -> void:
 	Events.happiness_changed.emit(happiness)
 	Events.on_feed.connect(func(x):happiness+=FEED_HAPPINESS_BONUS; Events.happiness_changed.emit(happiness))
 	Events.on_bad_feed.connect(func(x):happiness+=BAD_FEED_HAPPINESS_PENALTY; Events.happiness_changed.emit(happiness))
+	Events.on_clear_players_requested.connect(clear_players)
 	#var success: bool = await PlayerAccounts.register_guest()
 	#Logger.info("%s" % [success])
 	#await Leaderboards.post_guest_score("cake-sharing-happiness-score-S7ha", 100.0, "player_name")
@@ -147,12 +148,17 @@ func check_game_over():
 	if happiness == 0 and not gameover:
 		do_gameover()
 	
-
+func clear_players():
+	for child in get_tree().get_nodes_in_group("children"):
+		child.queue_free()	
+		
 func do_gameover():
 	gameover = true
-	
 	Logger.info("Game over!")
 	%LeaderBoard.submit_score(score)
+	
+	
+
 	
 
 func _on_tick_timer_timeout() -> void:
