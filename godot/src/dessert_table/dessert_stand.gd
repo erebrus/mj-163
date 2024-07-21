@@ -1,6 +1,6 @@
 class_name DessertStand extends Area2D
 
-@export var cooldown = 4.0
+@export var cooldown = 3.0
 
 var dessert_type: Types.DessertType
 var flavour: Types.Flavour

@@ -18,8 +18,8 @@ const ScoreScene:=preload("res://src/child/ScoreLabel.tscn")
 @export var area_rows := 4
 @export var y_area_margin := 200.0
 
-@export var initial_spawn_rate := 6.0
-@export var time_to_double := 200.0
+@export var initial_spawn_rate := 5.0
+@export var time_to_double := 240.0
 @onready var spawn_timer: Timer = $SpawnTimer
 @onready var timer: Timer = $Timer
 
