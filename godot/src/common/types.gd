@@ -97,7 +97,7 @@ const StateTable := {
 	ChildState.ABOUT_TO_CRY: "walk-upset",
 	ChildState.UPSET: "walk-neutral",
 	ChildState.NORMAL: "walk-happy",
-	ChildState.EATING: "stuffed", 
+	ChildState.EATING: "chew", 
 	ChildState.BAD_REACTION: "disgust", 
 	ChildState.GOOD_REACTION: "happy",
 	ChildState.LEAVING: "walk-happy",

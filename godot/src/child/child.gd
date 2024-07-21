@@ -122,14 +122,17 @@ func _update_state():
 		if new_state != state:
 			if new_state == Types.ChildState.CRYING:
 				_cry()
-			else:
-				_stop_crying()
 			state = new_state
 	
 	var is_walking = state in WALKING_STATES
 	
 	head_sprite.texture = Types.head_texture(state, skin, hair)
 	body_sprite.texture = Types.body_texture(is_walking, skin, clothes)
+	
+	if state != Types.ChildState.CRYING:
+		head_sprite.hframes = 1
+		if cry_tween != null:
+			cry_tween.kill()
 	
 	if is_walking:
 		head_sprite.flip_h = velocity.x > 0
@@ -147,6 +150,14 @@ func _update_state():
 		animation_player.play("sit")
 		if state != Types.ChildState.CRYING:
 			head_pivot.rotation = 0
+	
+	if state == Types.ChildState.EATING:
+		if !animation_player.is_playing() or animation_player.assigned_animation != "chew":
+			head_sprite.hframes = 2
+			animation_player.play("chew")
+	else:
+		head_sprite.hframes = 1
+	
 
 func change_direction():	
 	velocity.y = randi_range(-30,30)/100.0*SPEED
@@ -244,10 +255,4 @@ func _cry() -> void:
 	cry_tween.tween_property(head_pivot, "rotation", 0, 0.3).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	cry_tween.tween_interval(randf_range(0, 0.5))
 	cry_tween.tween_callback(_cry)
-	
-
-
-func _stop_crying() -> void:
-	if cry_tween:
-		cry_tween.kill()
 	
