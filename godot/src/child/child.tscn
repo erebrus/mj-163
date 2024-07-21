@@ -108,14 +108,16 @@ position = Vector2(44, 1)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_0xrg8")
 texture = ExtResource("6_6uo8t")
-lifetime = 2.0
+lifetime = 2.5
+explosiveness = 0.75
 
 [node name="LeftCryParticles" type="GPUParticles2D" parent="Sprites/HeadPivot/Head"]
 position = Vector2(-36, 1)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_8omxd")
 texture = ExtResource("6_6uo8t")
-lifetime = 1.5
+lifetime = 2.5
+explosiveness = 0.75
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
