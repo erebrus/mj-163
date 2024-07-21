@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://j6l3pgl2h0c6"]
+
+[ext_resource type="Texture2D" uid="uid://bffuyeriowe32" path="res://assets/gfx/ui-elements/happy-meter.png" id="1_1lt0i"]
+[ext_resource type="Script" path="res://src/ui/happiness_meter.gd" id="1_spqwq"]
+[ext_resource type="Texture2D" uid="uid://cdajywavyehxa" path="res://assets/gfx/ui-elements/meter-pointer.png" id="3_ne2n7"]
+[ext_resource type="Texture2D" uid="uid://ccufo2siha6ud" path="res://assets/gfx/ui-elements/happy.png" id="4_1snm2"]
+
+[node name="HappinessMeter" type="Control"]
+custom_minimum_size = Vector2(520, 130)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 520.0
+offset_bottom = 130.0
+script = ExtResource("1_spqwq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Meter" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_1lt0i")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Meter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PointerMargin" type="MarginContainer" parent="HBoxContainer/Meter/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="Pointer" type="TextureRect" parent="HBoxContainer/Meter/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_ne2n7")
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_1snm2")
