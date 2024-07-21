@@ -58,19 +58,27 @@ unique_name_in_owner = true
 position = Vector2(-132, -148)
 
 [node name="AmmoCounter" type="Node2D" parent="."]
-position = Vector2(-174, -233)
+position = Vector2(-183, -230)
 
 [node name="AmmoLabel" type="Label" parent="AmmoCounter"]
 unique_name_in_owner = true
-offset_left = -30.0
-offset_top = -22.0
-offset_right = 10.0
-offset_bottom = 24.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("5_gr3i2")
 theme_override_font_sizes/font_size = 64
 text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="GrandmaForeground" type="Sprite2D" parent="."]
 unique_name_in_owner = true
