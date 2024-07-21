@@ -39,6 +39,8 @@ func _ready() -> void:
 	Events.happiness_changed.emit(happiness)
 	Events.on_feed.connect(func(x):happiness+=FEED_HAPPINESS_BONUS; Events.happiness_changed.emit(happiness))
 	Events.on_bad_feed.connect(func(x):happiness+=BAD_FEED_HAPPINESS_PENALTY; Events.happiness_changed.emit(happiness))
+	#var success: bool = await PlayerAccounts.register_guest()
+	#Logger.info("%s" % [success])
 	#await Leaderboards.post_guest_score("cake-sharing-happiness-score-S7ha", 100.0, "player_name")
 	
 

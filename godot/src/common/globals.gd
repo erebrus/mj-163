@@ -14,10 +14,11 @@ var debug_build := false
 
 
 #@onready var menu_music: AudioStreamPlayer = $menu_music
-#@onready var game_music: AudioStreamPlayer = $game_music
+@onready var game_music: AudioStreamPlayer = $game_music
 
 func _ready():
 	_init_logger()
+	fade_in_music(game_music)
 
 	
 #func start_game():
@@ -46,14 +47,23 @@ func _init_logger():
 	#tween.tween_property(%Music,"volume_db",0,2)
 	
 
-#func play_music(node:AudioStreamPlayer):
-	#node.volume_db = 0
-	#node.play()
-	#
-#func fade_music(node:AudioStreamPlayer, duration := 1):
-	#var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	#tween.tween_property(node,"volume_db",-20 , duration)
+func play_music(node:AudioStreamPlayer):
+	if not node.playing:
+		node.volume_db = 0
+		node.play()
+
+func fade_in_music(node:AudioStreamPlayer, duration := 1):
+	var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	node.volume_db=-20
+	node.play()
+	tween.tween_property(node,"volume_db",0 , duration)
 	#await tween.finished
-	#node.stop()
+	
+		#
+func fade_music(node:AudioStreamPlayer, duration := 1):
+	var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(node,"volume_db",-20 , duration)
+	await tween.finished
+	node.stop()
 	
 	
