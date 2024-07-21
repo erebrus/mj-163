@@ -146,6 +146,7 @@ bus = &"Sound"
 
 [node name="walk_sfx" type="AudioStreamPlayer2D" parent="Sfx"]
 stream = SubResource("AudioStreamRandomizer_jmlkl")
+pitch_scale = 1.1
 bus = &"Sound"
 
 [node name="cry_sfx" type="AudioStreamPlayer2D" parent="Sfx"]
